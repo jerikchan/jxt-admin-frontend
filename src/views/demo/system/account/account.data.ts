@@ -1,16 +1,16 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
+import { isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '用户名',
-    dataIndex: 'account',
+    title: '账户账号',
+    dataIndex: 'code',
     width: 120,
   },
   {
-    title: '昵称',
-    dataIndex: 'nickname',
+    title: '名称',
+    dataIndex: 'name',
     width: 120,
   },
   {
@@ -36,14 +36,14 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'account',
-    label: '用户名',
+    field: 'code',
+    label: '账户账号',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'nickname',
-    label: '昵称',
+    field: 'name',
+    label: '名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -51,10 +51,17 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'code',
+    label: '用户账号',
+    component: 'Input',
+    required: true,
+    ifShow: true,
+  },
+  {
+    field: 'name',
     label: '用户名',
     component: 'Input',
-    helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
+    // helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
     rules: [
       {
         required: true,
@@ -78,50 +85,50 @@ export const accountFormSchema: FormSchema[] = [
     label: '密码',
     component: 'InputPassword',
     required: true,
-    ifShow: false,
+    ifShow: true,
   },
-  {
-    label: '角色',
-    field: 'role',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getAllRoleList,
-      labelField: 'roleName',
-      valueField: 'roleValue',
-    },
-    required: true,
-  },
-  {
-    field: 'dept',
-    label: '所属部门',
-    component: 'TreeSelect',
-    componentProps: {
-      fieldNames: {
-        label: 'deptName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
-    required: true,
-  },
-  {
-    field: 'nickname',
-    label: '昵称',
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   label: '角色',
+  //   field: 'role',
+  //   component: 'ApiSelect',
+  //   componentProps: {
+  //     api: getAllRoleList,
+  //     labelField: 'roleName',
+  //     valueField: 'roleValue',
+  //   },
+  //   required: true,
+  // },
+  // {
+  //   field: 'dept',
+  //   label: '所属部门',
+  //   component: 'TreeSelect',
+  //   componentProps: {
+  //     fieldNames: {
+  //       label: 'deptName',
+  //       key: 'id',
+  //       value: 'id',
+  //     },
+  //     getPopupContainer: () => document.body,
+  //   },
+  //   required: true,
+  // },
+  // {
+  //   field: 'name',
+  //   label: '名称',
+  //   component: 'Input',
+  //   required: true,
+  // },
 
-  {
-    label: '邮箱',
-    field: 'email',
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   label: '邮箱',
+  //   field: 'email',
+  //   component: 'Input',
+  //   required: true,
+  // },
 
-  {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
-  },
+  // {
+  //   label: '备注',
+  //   field: 'remark',
+  //   component: 'InputTextArea',
+  // },
 ];

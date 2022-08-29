@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './account.data';
   import { getDeptList } from '/@/api/demo/system';
+  import { addAccount } from '/@/api/jxt/system';
 
   export default defineComponent({
     name: 'AccountModal',
@@ -61,6 +62,11 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
+          if (!unref(isUpdate)) {
+            debugger;
+            await addAccount(values);
+            debugger;
+          }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
