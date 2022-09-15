@@ -1,12 +1,14 @@
 import { defHttp } from '/@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
+import { useGlobSetting } from '/@/hooks/setting';
 import { ErrorMessageMode } from '/#/axios';
+const { mockUrl = '' } = useGlobSetting();
 
 enum Api {
-  Login = '/login',
+  Login = '/login/auth',
   Logout = '/logout',
-  GetUserInfo = '/getUserInfo',
+  GetUserInfo = '/user/detail',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
 }
@@ -22,6 +24,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
     },
     {
       errorMessageMode: mode,
+      apiUrl: mockUrl,
     },
   );
 }
@@ -30,7 +33,10 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: 'none' });
+  return defHttp.get<GetUserInfoModel>(
+    { url: Api.GetUserInfo },
+    { errorMessageMode: 'none', apiUrl: mockUrl },
+  );
 }
 
 export function getPermCode() {

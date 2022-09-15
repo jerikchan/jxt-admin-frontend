@@ -1,4 +1,9 @@
-import { AccountParams, AccountListGetResultModel } from './model/systemModel';
+import {
+  AccountParams,
+  AccountListGetResultModel,
+  RolePageParams,
+  RolePageListGetResultModel,
+} from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
 
@@ -9,7 +14,7 @@ enum Api {
   DeptList = '/system/getDeptList',
   setRoleStatus = '/system/setRoleStatus',
   MenuList = '/system/getMenuList',
-  RolePageList = '/system/getRoleListByPage',
+  RolePageList = '/role/list',
   GetAllRoleList = '/system/getAllRoleList',
 
   AccountAdd = '/user/add',
@@ -21,3 +26,6 @@ export const getAccountList = (params: AccountParams) =>
 
 export const addAccount = (params?: AccountParams) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.AccountAdd, params }, { apiUrl: mockUrl });
+
+export const getRoleListByPage = (params?: RolePageParams) =>
+  defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params }, { apiUrl: mockUrl });

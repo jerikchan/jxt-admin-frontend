@@ -135,8 +135,9 @@
     try {
       loading.value = true;
       const userInfo = await userStore.login({
-        password: data.password,
-        username: data.account,
+        pwd: data.password,
+        code: data.account,
+        verifyCode: '123',
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {

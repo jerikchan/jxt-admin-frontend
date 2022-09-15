@@ -9,8 +9,9 @@ import { t } from '/@/hooks/web/useI18n';
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 // const modules = import.meta.globEager('./modules/**/*.ts');
 const modules = import.meta.globEager('./modules/*.ts');
-const demos = import.meta.globEager('./modules/demo/**/*.ts');
-const buz = import.meta.globEager('./modules/jxt/admission.ts');
+// const demos = import.meta.globEager('./modules/demo/**/*.ts');
+const admission = import.meta.globEager('./modules/jxt/admission.ts');
+const system = import.meta.globEager('./modules/jxt/system.ts');
 const routeModuleList: AppRouteModule[] = [];
 
 // 加入到路由集合中
@@ -22,8 +23,9 @@ const insetRouteModuleList = (modules) => {
   });
 };
 insetRouteModuleList(modules);
-insetRouteModuleList(demos);
-insetRouteModuleList(buz);
+// insetRouteModuleList(demos);
+insetRouteModuleList(admission);
+insetRouteModuleList(system);
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 

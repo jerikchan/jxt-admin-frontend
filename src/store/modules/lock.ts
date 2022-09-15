@@ -40,8 +40,9 @@ export const useLockStore = defineStore({
         try {
           const username = userStore.getUserInfo?.username;
           const res = await userStore.login({
-            username,
-            password: password!,
+            code: username,
+            pwd: password!,
+            verifyCode: '123',
             goHome: false,
             mode: 'none',
           });
