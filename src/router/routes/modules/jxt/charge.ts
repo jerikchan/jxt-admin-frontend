@@ -1,40 +1,38 @@
-import { DEFAULT_LAYOUT } from '../base';
-import { AppRouteRecordRaw } from '../types';
+import { LAYOUT } from '/@/router/constant';
+import type { AppRouteModule } from '/@/router/types';
 
-const LIST: AppRouteRecordRaw = {
+const LIST: AppRouteModule = {
   path: '/charge',
   name: 'charge',
-  component: DEFAULT_LAYOUT,
+  component: LAYOUT,
+  redirect: '/charge/charge',
   meta: {
-    // locale: 'menu.list',
-    label: '收费管理',
+    title: '收费管理',
     requiresAuth: true,
     icon: 'icon-file',
     order: 2,
   },
   children: [
     {
-      path: 'charge-record', // The midline path complies with SEO specifications
-      name: 'chargeRecord',
-      component: () => import('@/views/list/search-table/index.vue'),
+      path: 'charge', // The midline path complies with SEO specifications
+      name: 'ChargeList',
+      component: () => import('/@/views/jxt/charge/charge/index.vue'),
       meta: {
-        // locale: 'menu.list.searchTable',
-        label: '收费记录',
+        title: '收费记录',
         requiresAuth: true,
-        roles: ['*'],
       },
     },
-    {
-      path: 'business-project', // The midline path complies with SEO specifications
-      name: 'BusinessProject',
-      component: () => import('@/views/list/search-table/index.vue'),
-      meta: {
-        // locale: 'menu.list.searchTable',
-        label: '业务项目',
-        requiresAuth: true,
-        roles: ['*'],
-      },
-    },
+    // {
+    //   path: 'business-project', // The midline path complies with SEO specifications
+    //   name: 'BusinessProject',
+    //   component: () => import('@/views/list/search-table/index.vue'),
+    //   meta: {
+    //     // locale: 'menu.list.searchTable',
+    //     label: '业务项目',
+    //     requiresAuth: true,
+    //     roles: ['*'],
+    //   },
+    // },
   ],
 };
 

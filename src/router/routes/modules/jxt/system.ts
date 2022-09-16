@@ -14,70 +14,59 @@ const LIST: AppRouteModule = {
   },
   children: [
     {
-      path: 'user-management', // The midline path complies with SEO specifications
+      path: 'user', // The midline path complies with SEO specifications
       name: 'UserManagement',
-      component: () => import('/@/views/jxt/system/user-management/index.vue'),
+      component: () => import('/@/views/jxt/system/user/index.vue'),
       meta: {
         title: '用户管理',
         requiresAuth: true,
-        // roles: ['*'],
       },
     },
     {
-      path: 'role-management', // The midline path complies with SEO specifications
+      path: 'role', // The midline path complies with SEO specifications
       name: 'RoleManagement',
-      component: () => import('/@/views/jxt/system/role-management/index.vue'),
+      component: () => import('/@/views/jxt/system/role/index.vue'),
       meta: {
-        // locale: 'menu.list.searchTable',
         title: '角色管理',
         requiresAuth: true,
-        // roles: ['*'],
+      },
+    },
+    {
+      path: 'area', // The midline path complies with SEO specifications
+      name: 'AreaManagement',
+      component: () => import('/@/views/jxt/system/area/index.vue'),
+      meta: {
+        title: '场所管理',
+        requiresAuth: true,
       },
     },
     // {
-    //   path: 'plaza-management', // The midline path complies with SEO specifications
-    //   name: 'PlazaManagement',
-    //   component: () => import('@/views/list/search-table/index.vue'),
+    //   path: 'dept', // The midline path complies with SEO specifications
+    //   name: 'DeptManagement',
+    //   component: () => import('/@/views/jxt/system/dept/index.vue'),
     //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '场所管理',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
-    // {
-    //   path: 'division-management', // The midline path complies with SEO specifications
-    //   name: 'DivisionManagement',
-    //   component: () => import('@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
     //     title: '分部管理',
     //     requiresAuth: true,
-    //     roles: ['*'],
     //   },
     // },
-    // {
-    //   path: 'institution-management', // The midline path complies with SEO specifications
-    //   name: 'InstitutionManagement',
-    //   component: () => import('@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '机构管理',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
-    // {
-    //   path: 'authManagement', // The midline path complies with SEO specifications
-    //   name: 'AuthManagement',
-    //   component: () => import('@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '权限管理',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
+    {
+      path: 'parcel', // The midline path complies with SEO specifications
+      name: 'ParcelManagement',
+      component: () => import('/@/views/jxt/system/parcel/index.vue'),
+      meta: {
+        title: '机构管理',
+        requiresAuth: true,
+      },
+    },
+    {
+      path: 'auth', // The midline path complies with SEO specifications
+      name: 'AuthManagement',
+      component: () => import('/@/views/jxt/system/auth/index.vue'),
+      meta: {
+        title: '权限管理',
+        requiresAuth: true,
+      },
+    },
   ],
 };
 

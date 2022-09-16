@@ -10,7 +10,9 @@ import { t } from '/@/hooks/web/useI18n';
 // const modules = import.meta.globEager('./modules/**/*.ts');
 const modules = import.meta.globEager('./modules/*.ts');
 // const demos = import.meta.globEager('./modules/demo/**/*.ts');
-const admission = import.meta.globEager('./modules/jxt/admission.ts');
+const customer = import.meta.globEager('./modules/jxt/customer.ts');
+const charge = import.meta.globEager('./modules/jxt/charge.ts');
+const coach = import.meta.globEager('./modules/jxt/coach.ts');
 const system = import.meta.globEager('./modules/jxt/system.ts');
 const routeModuleList: AppRouteModule[] = [];
 
@@ -24,7 +26,9 @@ const insetRouteModuleList = (modules) => {
 };
 insetRouteModuleList(modules);
 // insetRouteModuleList(demos);
-insetRouteModuleList(admission);
+insetRouteModuleList(customer);
+insetRouteModuleList(charge);
+insetRouteModuleList(coach);
 insetRouteModuleList(system);
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];

@@ -8,7 +8,7 @@ const { mockUrl = '' } = useGlobSetting();
 enum Api {
   Login = '/login/auth',
   Logout = '/logout',
-  GetUserInfo = '/user/detail',
+  GetUserInfo = '/user/token/detail',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
 }
