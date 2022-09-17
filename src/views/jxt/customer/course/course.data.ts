@@ -7,19 +7,39 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
+    title: '课程名称',
+    dataIndex: 'name',
     width: 200,
   },
   {
-    title: '角色值',
-    dataIndex: 'roleValue',
+    title: '价格',
+    dataIndex: 'price',
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 150,
+  },
+  {
+    title: '分班数量',
+    dataIndex: '',
+    width: 150,
+  },
+  {
+    title: '在学人数',
+    dataIndex: '',
+    width: 150,
+  },
+  {
+    title: '阶段数量',
+    dataIndex: '',
+    width: 150,
+  },
+  {
+    title: '累计毕业',
+    dataIndex: '',
+    width: 150,
   },
   {
     title: '状态',
@@ -53,15 +73,6 @@ export const columns: BasicColumn[] = [
       });
     },
   },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
-  },
 ];
 
 export const searchFormSchema: FormSchema[] = [
@@ -87,38 +98,81 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'name',
+    label: '课程名称',
     required: true,
     component: 'Input',
   },
   {
-    field: 'roleValue',
-    label: '角色值',
+    field: 'price',
+    label: '课程报价',
     required: true,
     component: 'Input',
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
+    field: 'period',
+    label: '自动充值学时数',
+    required: true,
+    component: 'Input',
   },
   {
-    label: '备注',
-    field: 'remark',
+    field: 'period',
+    label: '自动充值学时数',
+    required: true,
+    component: 'Input',
+  },
+  {
+    field: 'courseFeature',
+    label: '课程卖点',
+    required: false,
     component: 'InputTextArea',
   },
   {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
+    field: 'privateIntroduction',
+    label: '内部说明',
+    required: false,
+    component: 'InputTextArea',
+  },
+  {
+    field: 'courseDetail',
+    label: '课程详情内容',
+    required: false,
+    component: 'InputTextArea',
+  },
+  {
+    field: 'notice',
+    label: '报名须知',
+    required: false,
+    component: 'InputTextArea',
+  },
+  {
+    field: 'faq',
+    label: '常见问题',
+    required: false,
+    component: 'InputTextArea',
+  },
+  {
+    field: 'courseType',
+    label: '常见问题',
+    required: false,
     component: 'Input',
+  },
+  {
+    field: 'paymentArrays',
+    label: '支付方式',
+    required: false,
+    component: 'InputTextArea',
+  },
+  {
+    field: 'status',
+    label: '课程状态',
+    required: false,
+    component: 'Input',
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    required: false,
+    component: 'InputTextArea',
   },
 ];
