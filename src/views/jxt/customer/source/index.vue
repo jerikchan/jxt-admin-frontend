@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增招生渠道 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增招生渠道 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -10,7 +10,7 @@
             :actions="[
               {
                 icon: 'clarity:note-edit-line',
-                onClick: handleEdit.bind(null, record),
+                onClick: handlerOper.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -46,7 +46,7 @@
     name: 'CustomerSourceManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
-      const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerDrawer] = useDrawer();
       const go = useGo();
       const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
@@ -70,18 +70,11 @@
         },
       });
 
-      function handleCreate(record: Recordable) {
+      function handlerOper(record: Recordable) {
         // openDrawer(true, {
         //   isUpdate: false,
         // });
         go('/customer/customer_source_oper/' + record.id);
-      }
-
-      function handleEdit(record: Recordable) {
-        openDrawer(true, {
-          record,
-          isUpdate: true,
-        });
       }
 
       async function handleDelete(record: Recordable) {
@@ -103,8 +96,7 @@
       return {
         registerTable,
         registerDrawer,
-        handleCreate,
-        handleEdit,
+        handlerOper,
         handleDelete,
         handleSuccess,
       };

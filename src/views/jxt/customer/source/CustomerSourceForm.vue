@@ -11,12 +11,13 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { formSchema } from './source.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
-  import { addSource } from '/@/api/jxt/customer';
+  import { addSource, detailSource } from '/@/api/jxt/customer';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useRoute } from 'vue-router';
 
   export default defineComponent({
     name: 'FormBasicPage',
@@ -24,7 +25,9 @@
     setup() {
       const { createMessage } = useMessage();
       const go = useGo();
-      const [register, { validate, setProps }] = useForm({
+      const route = useRoute();
+      const id = ref(route.params?.id);
+      const [register, { validate, setProps, setFieldsValue }] = useForm({
         labelCol: {
           span: 8,
         },
@@ -64,6 +67,17 @@
       function goback() {
         go('/customer/source');
       }
+
+      async function getDetail(id) {
+        if (id.value && id.value !== 'undefined') {
+          const details = await detailSource({ id: id.value as string });
+          setFieldsValue({
+            ...details,
+          });
+        }
+      }
+
+      getDetail(id);
 
       return { register, goback };
     },
