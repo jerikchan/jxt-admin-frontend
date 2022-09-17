@@ -31,26 +31,6 @@ const LIST: AppRouteModule = {
         requiresAuth: true,
       },
     },
-    // {
-    //   path: 'admission-stage', // The midline path complies with SEO specifications
-    //   name: 'AdmissionStage',
-    //   component: () => import('/@/views/demo/system/account/index.vue'),
-    //   meta: {
-    //     title: '阶段管理',
-    //     requiresAuth: true,
-    //     // roles: ['*'],
-    //   },
-    // },
-    // {
-    //   path: 'admission-statistics', // The midline path complies with SEO specifications
-    //   name: 'AdmissionStatistics',
-    //   component: () => import('/@/views/demo/system/account/index.vue'),
-    //   meta: {
-    //     title: '招生统计',
-    //     requiresAuth: true,
-    //     // roles: ['*'],
-    //   },
-    // },
     {
       path: 'course', // The midline path complies with SEO specifications
       name: 'CourseList',

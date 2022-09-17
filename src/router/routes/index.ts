@@ -14,6 +14,7 @@ const customer = import.meta.globEager('./modules/jxt/customer.ts');
 const charge = import.meta.globEager('./modules/jxt/charge.ts');
 const coach = import.meta.globEager('./modules/jxt/coach.ts');
 const system = import.meta.globEager('./modules/jxt/system.ts');
+const student = import.meta.globEager('./modules/jxt/student.ts');
 const routeModuleList: AppRouteModule[] = [];
 
 // 加入到路由集合中
@@ -30,6 +31,7 @@ insetRouteModuleList(customer);
 insetRouteModuleList(charge);
 insetRouteModuleList(coach);
 insetRouteModuleList(system);
+insetRouteModuleList(student);
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 
