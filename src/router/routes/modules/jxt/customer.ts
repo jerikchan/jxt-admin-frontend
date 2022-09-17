@@ -66,6 +66,19 @@ const LIST: AppRouteModule = {
         requiresAuth: true,
       },
     },
+    {
+      path: 'customer_course_oper/:id',
+      name: 'CustomerCourseOper',
+      meta: {
+        title: '新增/编辑招生课程',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/customer',
+      },
+      component: () => import('/@/views/jxt/customer/course/CourseForm.vue'),
+    },
   ],
 };
 
