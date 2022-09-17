@@ -1,8 +1,8 @@
 <template>
   <PageWrapper
-    title="新增/编辑潜在学员"
+    title="新增/编辑招生渠道"
     contentBackground
-    content="新增/编辑潜在学员"
+    content="新增/编辑招生渠道"
     contentClass="p-4"
     @back="goback"
   >
