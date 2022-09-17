@@ -33,18 +33,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCourseListByPage } from '/@/api/jxt/customer';
+  import { getCourseListByPage, deleteCourse } from '/@/api/jxt/customer';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
   import { columns, searchFormSchema } from './course.data';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   export default defineComponent({
-    name: 'AreaManagement',
+    name: 'CourseManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
         title: '招生课程列表',
         api: getCourseListByPage,
@@ -56,7 +59,7 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
+        showIndexColumn: true,
         actionColumn: {
           width: 80,
           title: '操作',
@@ -79,8 +82,13 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        try {
+          await deleteCourse({ id: record.id });
+          createMessage.success('删除成功！');
+          reload();
+        } catch (error) {}
       }
 
       function handleSuccess() {
