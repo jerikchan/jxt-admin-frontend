@@ -23,6 +23,19 @@ const LIST: AppRouteModule = {
       },
     },
     {
+      path: 'customer_oper/:id',
+      name: 'CustomerOper',
+      meta: {
+        title: '新增/编辑潜在学员',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/customer',
+      },
+      component: () => import('/@/views/jxt/customer/customer/CustomerForm.vue'),
+    },
+    {
       path: 'source', // The midline path complies with SEO specifications
       name: 'SourceList',
       component: () => import('/@/views/jxt/customer/source/index.vue'),
@@ -30,6 +43,19 @@ const LIST: AppRouteModule = {
         title: '招生渠道',
         requiresAuth: true,
       },
+    },
+    {
+      path: 'customer_source_oper/:id',
+      name: 'CustomerSourceOper',
+      meta: {
+        title: '新增/编辑招生渠道',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/customer',
+      },
+      component: () => import('/@/views/jxt/customer/source/CustomerSourceForm.vue'),
     },
     {
       path: 'course', // The midline path complies with SEO specifications

@@ -38,10 +38,10 @@
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
-  import { columns, searchFormSchema } from './role.data';
+  import { columns, searchFormSchema } from './source.data';
 
   export default defineComponent({
-    name: 'AreaManagement',
+    name: 'CustomerSourceManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();

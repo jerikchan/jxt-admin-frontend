@@ -38,6 +38,8 @@
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
   import { columns, searchFormSchema } from './customer.data';
 
   export default defineComponent({
@@ -45,8 +47,9 @@
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
-        title: '学员列表',
+        title: '潜在学员列表',
         api: getCustomerListByPage,
         columns,
         formConfig: {
@@ -66,10 +69,11 @@
         },
       });
 
-      function handleCreate() {
-        openDrawer(true, {
-          isUpdate: false,
-        });
+      function handleCreate(record: Recordable) {
+        // openDrawer(true, {
+        //   isUpdate: false,
+        // });
+        go('/customer/customer_oper/' + record.id);
       }
 
       function handleEdit(record: Recordable) {

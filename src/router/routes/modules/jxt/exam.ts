@@ -16,7 +16,7 @@ const LIST: AppRouteModule = {
     {
       path: 'exam', // The midline path complies with SEO specifications
       name: 'examList',
-      component: () => import('/@/views/jxt/student/index.vue'),
+      component: () => import('/@/views/jxt/customer/customer/index.vue'),
       meta: {
         title: '考试记录列表',
         requiresAuth: true,
@@ -25,7 +25,7 @@ const LIST: AppRouteModule = {
     {
       path: 'student-statistics', // The midline path complies with SEO specifications
       name: 'StudentStatistics',
-      component: () => import('/@/views/list/search-table/index.vue'),
+      component: () => import('/@/views/jxt/customer/customer/index.vue'),
       meta: {
         // locale: 'menu.list.searchTable',
         title: '在学统计',
@@ -36,7 +36,7 @@ const LIST: AppRouteModule = {
     {
       path: 'student-complaint', // The midline path complies with SEO specifications
       name: 'StudentComplaint',
-      component: () => import('/@/views/list/search-table/index.vue'),
+      component: () => import('/@/views/jxt/customer/customer/index.vue'),
       meta: {
         // locale: 'menu.list.searchTable',
         title: '学员投诉',
@@ -47,7 +47,7 @@ const LIST: AppRouteModule = {
     {
       path: 'student-tag', // The midline path complies with SEO specifications
       name: 'StudentTag',
-      component: () => import('/@/views/list/search-table/index.vue'),
+      component: () => import('/@/views/jxt/customer/customer/index.vue'),
       meta: {
         // locale: 'menu.list.searchTable',
         title: '学员标签',

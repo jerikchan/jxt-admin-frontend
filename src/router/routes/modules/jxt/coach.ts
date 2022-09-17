@@ -33,7 +33,7 @@ const LIST: AppRouteModule = {
         hideTab: true,
         currentActiveMenu: '/coach/coach',
       },
-      component: () => import('/@/views/admin/beo/order/BeoOrderModal.vue'),
+      component: () => import('/@/views/jxt/coach/coach/index.vue'),
     },
     // {
     //   path: 'student-evaluation', // The midline path complies with SEO specifications
