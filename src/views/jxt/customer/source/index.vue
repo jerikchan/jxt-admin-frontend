@@ -33,11 +33,12 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getSourceListByPage } from '/@/api/jxt/customer';
+  import { getSourceListByPage, deleteSource } from '/@/api/jxt/customer';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { columns, searchFormSchema } from './source.data';
 
@@ -47,6 +48,7 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const go = useGo();
+      const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
         title: '招生渠道列表',
         api: getSourceListByPage,
@@ -58,7 +60,7 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
+        showIndexColumn: true,
         actionColumn: {
           width: 80,
           title: '操作',
@@ -82,8 +84,16 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        try {
+          await deleteSource({ id: record.id });
+          createMessage.success('删除成功!');
+        } catch (error) {
+          console.error(error);
+          createMessage.success('删除失败!');
+        }
+        reload();
       }
 
       function handleSuccess() {
