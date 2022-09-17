@@ -22,6 +22,19 @@ const LIST: AppRouteModule = {
         requiresAuth: true,
       },
     },
+    {
+      path: 'coach_oper/:id',
+      name: 'CoachOper',
+      meta: {
+        title: '新增/编辑教练员信息',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/coach/coach',
+      },
+      component: () => import('/@/views/admin/beo/order/BeoOrderModal.vue'),
+    },
     // {
     //   path: 'student-evaluation', // The midline path complies with SEO specifications
     //   name: 'StudentEvaluation',

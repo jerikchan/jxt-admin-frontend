@@ -1,9 +1,5 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
@@ -12,75 +8,48 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '角色值',
+    title: '所属分部',
     dataIndex: 'roleValue',
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '手机号',
+    dataIndex: 'mobile',
+    width: 200,
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    width: 120,
-    customRender: ({ record }) => {
-      if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
-      }
-      return h(Switch, {
-        checked: record.status === '1',
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
-        loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
-          const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
-            .then(() => {
-              record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
-            })
-            .catch(() => {
-              createMessage.error('修改角色状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
-        },
-      });
-    },
+    title: '在岗状态',
+    dataIndex: 'statusStr',
+    width: 100,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '教练类型',
+    dataIndex: 'coachType',
+    width: 100,
   },
   {
-    title: '备注',
-    dataIndex: 'remark',
+    title: '业务类型',
+    dataIndex: 'serviceType',
+    width: 100,
+  },
+  {
+    title: '所属训练场',
+    dataIndex: 'mobile',
+    width: 200,
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
-    label: '角色名称',
+    field: 'name',
+    label: '教练姓名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
+    field: 'mobile',
+    label: '手机号',
+    component: 'Input',
     colProps: { span: 8 },
   },
 ];
@@ -120,5 +89,153 @@ export const formSchema: FormSchema[] = [
     field: 'menu',
     slot: 'menu',
     component: 'Input',
+  },
+];
+
+const basicOptions: LabelValueOptions = [
+  {
+    label: '付晓晓',
+    value: '1',
+  },
+  {
+    label: '周毛毛',
+    value: '2',
+  },
+];
+
+const storeTypeOptions: LabelValueOptions = [
+  {
+    label: '私密',
+    value: '1',
+  },
+  {
+    label: '公开',
+    value: '2',
+  },
+];
+
+export const schemas: FormSchema[] = [
+  {
+    field: 'f1',
+    component: 'Input',
+    label: '仓库名',
+    required: true,
+  },
+  {
+    field: 'f2',
+    component: 'Input',
+    label: '仓库域名',
+    required: true,
+    componentProps: {
+      addonBefore: 'http://',
+      addonAfter: 'com',
+    },
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 'f3',
+    component: 'Select',
+    label: '仓库管理员',
+    componentProps: {
+      options: basicOptions,
+    },
+    required: true,
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 'f4',
+    component: 'Select',
+    label: '审批人',
+    componentProps: {
+      options: basicOptions,
+    },
+    required: true,
+  },
+  {
+    field: 'f5',
+    component: 'RangePicker',
+    label: '生效日期',
+    required: true,
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 'f6',
+    component: 'Select',
+    label: '仓库类型',
+    componentProps: {
+      options: storeTypeOptions,
+    },
+    required: true,
+    colProps: {
+      offset: 2,
+    },
+  },
+];
+export const taskSchemas: FormSchema[] = [
+  {
+    field: 't1',
+    component: 'Input',
+    label: '任务名',
+    required: true,
+  },
+  {
+    field: 't2',
+    component: 'Input',
+    label: '任务描述',
+    required: true,
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 't3',
+    component: 'Select',
+    label: '执行人',
+    componentProps: {
+      options: basicOptions,
+    },
+    required: true,
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 't4',
+    component: 'Select',
+    label: '责任人',
+    componentProps: {
+      options: basicOptions,
+    },
+    required: true,
+  },
+  {
+    field: 't5',
+    component: 'TimePicker',
+    label: '生效日期',
+    required: true,
+    componentProps: {
+      style: { width: '100%' },
+    },
+    colProps: {
+      offset: 2,
+    },
+  },
+  {
+    field: 't6',
+    component: 'Select',
+    label: '任务类型',
+    componentProps: {
+      options: storeTypeOptions,
+    },
+    required: true,
+    colProps: {
+      offset: 2,
+    },
   },
 ];
