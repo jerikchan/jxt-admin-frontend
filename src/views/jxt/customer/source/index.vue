@@ -37,6 +37,7 @@
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
+  import { useGo } from '/@/hooks/web/usePage';
 
   import { columns, searchFormSchema } from './source.data';
 
@@ -45,6 +46,7 @@
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '招生渠道列表',
         api: getSourceListByPage,
@@ -66,10 +68,11 @@
         },
       });
 
-      function handleCreate() {
-        openDrawer(true, {
-          isUpdate: false,
-        });
+      function handleCreate(record: Recordable) {
+        // openDrawer(true, {
+        //   isUpdate: false,
+        // });
+        go('/customer/customer_source_oper/' + record.id);
       }
 
       function handleEdit(record: Recordable) {

@@ -85,40 +85,26 @@ export const searchFormSchema: FormSchema[] = [
   },
 ];
 
+const colProps = {
+  span: 8,
+};
+
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'name',
+    label: '渠道名称',
     required: true,
     component: 'Input',
+    colProps,
   },
   {
-    field: 'roleValue',
-    label: '角色值',
-    required: true,
-    component: 'Input',
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
-  },
-  {
-    label: '备注',
-    field: 'remark',
+    field: 'introduction',
+    label: '渠道简介',
     component: 'InputTextArea',
-  },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
-    component: 'Input',
+    colProps,
+    componentProps: {
+      placeholder: '',
+      rows: 4,
+    },
   },
 ];

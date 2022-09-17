@@ -12,7 +12,7 @@
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent } from 'vue';
-  import { customerFormSchema } from './customer.data';
+  import { formSchema } from './source.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
@@ -30,7 +30,7 @@
         wrapperCol: {
           span: 15,
         },
-        schemas: customerFormSchema,
+        schemas: formSchema,
         actionColOptions: {
           offset: 8,
           span: 23,
@@ -61,7 +61,7 @@
       }
 
       function goback() {
-        go('/customer/customer');
+        go('/customer/source');
       }
 
       return { register, goback };
