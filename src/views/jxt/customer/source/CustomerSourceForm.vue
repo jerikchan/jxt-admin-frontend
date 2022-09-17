@@ -15,6 +15,7 @@
   import { formSchema } from './source.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { addSource } from '/@/api/jxt/customer';
   import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
@@ -43,20 +44,20 @@
 
       async function customSubmitFunc() {
         try {
-          await validate();
+          const values = await validate();
           setProps({
             submitButtonOptions: {
               loading: true,
             },
           });
-          setTimeout(() => {
-            setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-            createMessage.success('提交成功！');
-          }, 2000);
+          await addSource(values);
+          setProps({
+            submitButtonOptions: {
+              loading: false,
+            },
+          });
+          createMessage.success('提交成功!');
+          go('/customer/source');
         } catch (error) {}
       }
 
