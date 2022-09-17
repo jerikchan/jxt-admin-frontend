@@ -7,8 +7,8 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
+    title: '教练姓名',
+    dataIndex: 'name',
     width: 200,
   },
   {
