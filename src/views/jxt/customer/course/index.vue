@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增招生课程 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增招生课程 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -10,7 +10,7 @@
             :actions="[
               {
                 icon: 'clarity:note-edit-line',
-                onClick: handleEdit.bind(null, record),
+                onClick: handlerOper.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -40,14 +40,16 @@
 
   import { columns, searchFormSchema } from './course.data';
 
+  import { useGo } from '/@/hooks/web/usePage';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'CourseManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
-      const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerDrawer] = useDrawer();
       const { createMessage } = useMessage();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '招生课程列表',
         api: getCourseListByPage,
@@ -69,17 +71,8 @@
         },
       });
 
-      function handleCreate() {
-        openDrawer(true, {
-          isUpdate: false,
-        });
-      }
-
-      function handleEdit(record: Recordable) {
-        openDrawer(true, {
-          record,
-          isUpdate: true,
-        });
+      function handlerOper(record: Recordable) {
+        go('/customer/customer_course_oper/' + record.id);
       }
 
       async function handleDelete(record: Recordable) {
@@ -98,8 +91,7 @@
       return {
         registerTable,
         registerDrawer,
-        handleCreate,
-        handleEdit,
+        handlerOper,
         handleDelete,
         handleSuccess,
       };
