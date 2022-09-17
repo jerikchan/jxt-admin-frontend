@@ -12,6 +12,7 @@ enum Api {
   AddSource = '/source/add',
   UpdateSource = '/source/update',
   DeleteSource = '/source/delete',
+  DetailSource = '/source/detail',
 }
 
 export const getCustomerListByPage = (params?: RolePageParams) =>
@@ -34,3 +35,6 @@ export const updateSource = (params?: {}) =>
 
 export const deleteSource = (params?: {}) =>
   defHttp.post<{}>({ url: Api.DeleteSource, params }, { apiUrl: mockUrl });
+
+export const detailSource = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.DetailSource, params }, { apiUrl: mockUrl });
