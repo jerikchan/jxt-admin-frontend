@@ -15,7 +15,7 @@
   import { formSchema } from './source.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
-  import { addSource, detailSource } from '/@/api/jxt/customer';
+  import { addSource, detailSource, updateSource } from '/@/api/jxt/customer';
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
 
@@ -53,7 +53,12 @@
               loading: true,
             },
           });
-          await addSource(values);
+          if (id.value && id.value !== 'undefined') {
+            Object.assign(values, { id: id.value as string });
+            await updateSource(values);
+          } else {
+            await addSource(values);
+          }
           setProps({
             submitButtonOptions: {
               loading: false,
