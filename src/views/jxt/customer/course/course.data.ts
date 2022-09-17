@@ -5,6 +5,10 @@ import { Switch } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
 
+const colProps = {
+  span: 8,
+};
+
 export const columns: BasicColumn[] = [
   {
     title: '课程名称',
@@ -77,22 +81,10 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
-    label: '角色名称',
+    field: 'name',
+    label: '课程名称',
     component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
-    colProps: { span: 8 },
+    colProps: { span: 3 },
   },
 ];
 
@@ -102,77 +94,83 @@ export const formSchema: FormSchema[] = [
     label: '课程名称',
     required: true,
     component: 'Input',
+    colProps,
   },
   {
     field: 'price',
     label: '课程报价',
     required: true,
     component: 'Input',
+    colProps,
   },
   {
     field: 'period',
     label: '自动充值学时数',
     required: true,
     component: 'Input',
-  },
-  {
-    field: 'period',
-    label: '自动充值学时数',
-    required: true,
-    component: 'Input',
+    colProps,
   },
   {
     field: 'courseFeature',
     label: '课程卖点',
     required: false,
     component: 'InputTextArea',
+    colProps,
   },
   {
     field: 'privateIntroduction',
     label: '内部说明',
     required: false,
     component: 'InputTextArea',
+    colProps,
   },
   {
     field: 'courseDetail',
     label: '课程详情内容',
     required: false,
     component: 'InputTextArea',
+    colProps,
   },
   {
     field: 'notice',
     label: '报名须知',
     required: false,
     component: 'InputTextArea',
+    colProps,
   },
   {
     field: 'faq',
     label: '常见问题',
     required: false,
     component: 'InputTextArea',
+    colProps,
   },
   {
     field: 'courseType',
     label: '常见问题',
     required: false,
     component: 'Input',
+    colProps,
   },
   {
     field: 'paymentArrays',
     label: '支付方式',
     required: false,
+    colProps,
     component: 'InputTextArea',
   },
   {
     field: 'status',
     label: '课程状态',
     required: false,
+    colProps,
     component: 'Input',
   },
   {
     field: 'remark',
     label: '备注',
     required: false,
+    colProps,
     component: 'InputTextArea',
   },
 ];
