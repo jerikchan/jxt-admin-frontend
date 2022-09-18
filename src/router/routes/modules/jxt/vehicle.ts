@@ -1,25 +1,25 @@
-import { DEFAULT_LAYOUT } from '../base';
-import { AppRouteRecordRaw } from '../types';
+import { LAYOUT } from '/@/router/constant';
+import type { AppRouteModule } from '/@/router/types';
 
-const LIST: AppRouteRecordRaw = {
+const LIST: AppRouteModule = {
   path: '/vehicle',
   name: 'vehicle',
-  component: DEFAULT_LAYOUT,
+  component: LAYOUT,
   meta: {
     // locale: 'menu.list',
-    label: '车辆管理',
+    title: '车辆档案管理',
     requiresAuth: true,
-    icon: 'icon-list',
+    icon: 'ic:twotone-toys',
     order: 2,
   },
   children: [
     {
       path: 'vehicle-file', // The midline path complies with SEO specifications
       name: 'VehicleFile',
-      component: () => import('@/views/list/search-table/index.vue'),
+      component: () => import('/@/views/jxt/car/index.vue'),
       meta: {
         // locale: 'menu.list.searchTable',
-        label: '车辆档案',
+        title: '车辆档案',
         requiresAuth: true,
         roles: ['*'],
       },
