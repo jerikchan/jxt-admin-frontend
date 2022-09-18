@@ -9,7 +9,7 @@ const LIST: AppRouteModule = {
   meta: {
     title: '收费管理',
     requiresAuth: true,
-    icon: 'icon-file',
+    icon: 'ic:twotone-text-snippet',
     order: 2,
   },
   children: [

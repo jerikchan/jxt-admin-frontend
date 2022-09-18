@@ -9,7 +9,7 @@ const LIST: AppRouteModule = {
   meta: {
     title: '系统管理',
     requiresAuth: true,
-    icon: 'icon-check-circle',
+    icon: 'ion:settings-outline',
     order: 90,
   },
   children: [

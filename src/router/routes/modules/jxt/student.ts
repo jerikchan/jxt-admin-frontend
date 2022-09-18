@@ -9,7 +9,7 @@ const LIST: AppRouteModule = {
   meta: {
     title: '学员管理',
     requiresAuth: true,
-    icon: 'fe:activity',
+    icon: 'ic:baseline-account-circle',
     order: 2,
   },
   children: [

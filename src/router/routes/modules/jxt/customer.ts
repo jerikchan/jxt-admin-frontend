@@ -9,7 +9,7 @@ const LIST: AppRouteModule = {
   meta: {
     title: '招生管理',
     requiresAuth: true,
-    icon: 'ion:check-circle',
+    icon: 'ic:baseline-account-box',
     order: 2,
   },
   children: [

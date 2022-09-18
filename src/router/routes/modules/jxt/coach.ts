@@ -9,7 +9,7 @@ const LIST: AppRouteModule = {
   meta: {
     title: '教练员管理',
     requiresAuth: true,
-    icon: 'icon-user',
+    icon: 'ic:baseline-admin-panel-settings',
     order: 2,
   },
   children: [
