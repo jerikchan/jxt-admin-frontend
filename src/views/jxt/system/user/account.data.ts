@@ -1,4 +1,5 @@
 import { isAccountExist } from '/@/api/demo/system';
+import { getAccountList } from '/@/api/jxt/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -38,8 +39,17 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'code',
     label: '账户账号',
-    component: 'Input',
+    component: 'ApiSelect',
     colProps: { span: 8 },
+    componentProps: {
+      // more details see /src/components/Form/src/components/ApiSelect.vue
+      api: getAccountList,
+      showSearch: true,
+      resultField: 'items',
+      labelField: 'code',
+      valueField: 'code',
+      immediate: false,
+    },
   },
   {
     field: 'name',
