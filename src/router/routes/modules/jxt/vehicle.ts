@@ -21,7 +21,6 @@ const LIST: AppRouteModule = {
         // locale: 'menu.list.searchTable',
         title: '车辆档案',
         requiresAuth: true,
-        roles: ['*'],
       },
     },
   ],
