@@ -16,6 +16,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
+  import { addCustomer } from '/@/api/jxt/customer';
 
   export default defineComponent({
     name: 'FormBasicPage',
@@ -49,14 +50,15 @@
               loading: true,
             },
           });
-          setTimeout(() => {
-            setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-            createMessage.success('提交成功！');
-          }, 2000);
+          await addCustomer();
+          // setTimeout(() => {
+          setProps({
+            submitButtonOptions: {
+              loading: false,
+            },
+          });
+          createMessage.success('提交成功！');
+          // }, 2000);
         } catch (error) {}
       }
 

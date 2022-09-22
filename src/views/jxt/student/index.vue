@@ -33,12 +33,12 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCustomerListByPage } from '/@/api/jxt/customer';
+  import { getStudentListByPage } from '/@/api/jxt/student';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
-  import { columns, searchFormSchema } from './role.data';
+  import { columns, searchFormSchema } from './data';
 
   export default defineComponent({
     name: 'AreaManagement',
@@ -47,7 +47,7 @@
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
         title: '学员列表',
-        api: getCustomerListByPage,
+        api: getStudentListByPage,
         columns,
         formConfig: {
           labelWidth: 120,

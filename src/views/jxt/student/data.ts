@@ -7,12 +7,12 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
+    title: '学员名称',
     dataIndex: 'roleName',
     width: 200,
   },
   {
-    title: '角色值',
+    title: '学员值',
     dataIndex: 'roleValue',
     width: 180,
   },
@@ -41,10 +41,10 @@ export const columns: BasicColumn[] = [
           setRoleStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
+              createMessage.success(`已成功修改学员状态`);
             })
             .catch(() => {
-              createMessage.error('修改角色状态失败');
+              createMessage.error('修改学员状态失败');
             })
             .finally(() => {
               record.pendingStatus = false;
@@ -67,7 +67,7 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'roleNme',
-    label: '角色名称',
+    label: '学员名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -88,13 +88,13 @@ export const searchFormSchema: FormSchema[] = [
 export const formSchema: FormSchema[] = [
   {
     field: 'roleName',
-    label: '角色名称',
+    label: '学员名称',
     required: true,
     component: 'Input',
   },
   {
     field: 'roleValue',
-    label: '角色值',
+    label: '学员值',
     required: true,
     component: 'Input',
   },

@@ -1,9 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
+import { Switch, Image } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { uploadApi } from '/@/api/sys/upload';
 
 const colProps = {
   span: 8,
@@ -24,6 +25,18 @@ export const columns: BasicColumn[] = [
     title: '创建时间',
     dataIndex: 'createTime',
     width: 150,
+  },
+  {
+    title: '课程图',
+    dataIndex: 'preview',
+    width: 150,
+    customRender: ({ record }) => {
+      return h(Image, {
+        src: record.preview || '/src/assets/images/logo.png',
+        width: 60,
+        height: 60,
+      });
+    },
   },
   {
     title: '分班数量',
@@ -109,6 +122,15 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
     colProps,
+  },
+  {
+    field: 'preview',
+    label: '课程图',
+    component: 'Upload',
+    colProps,
+    componentProps: {
+      api: uploadApi,
+    },
   },
   {
     field: 'courseFeature',

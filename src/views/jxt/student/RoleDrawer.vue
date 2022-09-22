@@ -24,7 +24,7 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './role.data';
+  import { formSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
@@ -61,7 +61,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增学员' : '编辑学员'));
 
       async function handleSubmit() {
         try {
