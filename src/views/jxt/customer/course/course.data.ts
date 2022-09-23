@@ -1,5 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { ProcessPreview } from '/@/components/ProcessPreview';
 import { h } from 'vue';
 import { Switch, Image } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
@@ -35,6 +36,33 @@ export const columns: BasicColumn[] = [
         src: record.preview || '/src/assets/images/logo.png',
         width: 60,
         height: 60,
+      });
+    },
+  },
+  {
+    title: '课程进度',
+    dataIndex: 'process',
+    width: 250,
+    customRender: ({ record }) => {
+      return h(ProcessPreview, {
+        processList: record.processList || [
+          {
+            text: '科目一',
+            pass: true,
+          },
+          {
+            text: '科目二',
+            pass: true,
+          },
+          {
+            text: '科目三',
+            pass: false,
+          },
+          {
+            text: '科目四',
+            pass: false,
+          },
+        ],
       });
     },
   },
