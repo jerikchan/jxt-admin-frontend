@@ -20,6 +20,9 @@ enum Api {
   DetailCourse = '/course/detail',
 
   AddCustomer = '/customer/add',
+  UpdateCustomer = '/customer/update',
+  DeleteCustomer = '/customer/delete',
+  DetailCustomer = '/customer/detail',
 }
 
 export const getCustomerListByPage = (params?: RolePageParams) =>
@@ -60,3 +63,12 @@ export const deleteCourse = (params?: {}) =>
 
 export const detailCourse = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailCourse, params }, { apiUrl: mockUrl });
+
+export const updateCustomer = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateCustomer, params }, { apiUrl: mockUrl });
+
+export const deleteCustomer = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeleteCustomer, params }, { apiUrl: mockUrl });
+
+export const detailCustomer = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.DetailCustomer, params }, { apiUrl: mockUrl });

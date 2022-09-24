@@ -71,9 +71,6 @@
       });
 
       function handlerOper(record: Recordable) {
-        // openDrawer(true, {
-        //   isUpdate: false,
-        // });
         go('/customer/customer_source_oper/' + record.id);
       }
 

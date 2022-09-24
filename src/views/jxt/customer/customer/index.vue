@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增学员 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增学员 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -10,7 +10,7 @@
             :actions="[
               {
                 icon: 'clarity:note-edit-line',
-                onClick: handleEdit.bind(null, record),
+                onClick: handlerOper.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -33,12 +33,13 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCustomerListByPage } from '/@/api/jxt/customer';
+  import { getCustomerListByPage, deleteCustomer } from '/@/api/jxt/customer';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
   import { useGo } from '/@/hooks/web/usePage';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { columns, searchFormSchema } from './customer.data';
 
@@ -46,8 +47,9 @@
     name: 'AreaManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
-      const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerDrawer] = useDrawer();
       const go = useGo();
+      const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
         title: '潜在学员列表',
         api: getCustomerListByPage,
@@ -59,32 +61,29 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
+        showIndexColumn: true,
         actionColumn: {
           width: 80,
           title: '操作',
           dataIndex: 'action',
-          // slots: { customRender: 'action' },
           fixed: undefined,
         },
       });
 
-      function handleCreate(record: Recordable) {
-        // openDrawer(true, {
-        //   isUpdate: false,
-        // });
+      function handlerOper(record: Recordable) {
         go('/customer/customer_oper/' + record.id);
       }
 
-      function handleEdit(record: Recordable) {
-        openDrawer(true, {
-          record,
-          isUpdate: true,
-        });
-      }
-
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        try {
+          await deleteCustomer({ id: record.id });
+          createMessage.success('删除成功!');
+        } catch (error) {
+          console.error(error);
+          createMessage.success('删除失败!');
+        }
+        reload();
       }
 
       function handleSuccess() {
@@ -94,8 +93,7 @@
       return {
         registerTable,
         registerDrawer,
-        handleCreate,
-        handleEdit,
+        handlerOper,
         handleDelete,
         handleSuccess,
       };

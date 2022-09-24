@@ -1,20 +1,21 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
     title: '姓名',
-    dataIndex: 'roleName',
+    dataIndex: 'name',
     width: 100,
   },
   {
-    title: '录入时间',
-    dataIndex: 'roleValue',
-    width: 180,
+    title: '电话号码',
+    dataIndex: 'mobile',
+    width: 200,
+  },
+  {
+    title: '学员类型',
+    dataIndex: 'type',
+    width: 100,
   },
   {
     title: '跟进提醒日期',
@@ -23,22 +24,22 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '状态',
-    dataIndex: 'orderNo',
+    dataIndex: 'status',
     width: 100,
   },
   {
     title: '介绍人',
-    dataIndex: 'orderNo',
+    dataIndex: 'introductionName',
     width: 100,
   },
   {
     title: '来源',
-    dataIndex: 'orderNo',
+    dataIndex: 'customerSource',
     width: 100,
   },
   {
     title: '意向课程',
-    dataIndex: 'orderNo',
+    dataIndex: 'purposeCourse',
     width: 100,
   },
   {
@@ -47,39 +48,7 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    width: 120,
-    customRender: ({ record }) => {
-      if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
-      }
-      return h(Switch, {
-        checked: record.status === '1',
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
-        loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
-          const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
-            .then(() => {
-              record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
-            })
-            .catch(() => {
-              createMessage.error('修改角色状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
-        },
-      });
-    },
-  },
-  {
-    title: '创建时间',
+    title: '录入时间',
     dataIndex: 'createTime',
     width: 180,
   },
@@ -254,7 +223,7 @@ export const customerFormSchema: FormSchema[] = [
       placeholder: '',
       rows: 4,
     },
-    required: true,
+    required: false,
   },
   // {
   //   field: 'metrics',
