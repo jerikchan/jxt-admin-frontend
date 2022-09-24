@@ -22,6 +22,19 @@ const LIST: AppRouteModule = {
         requiresAuth: true,
       },
     },
+    {
+      path: 'charge_oper/:id',
+      name: 'ChargeOper',
+      meta: {
+        title: '新增/编辑收费记录',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/charge/charge',
+      },
+      component: () => import('/@/views/jxt/charge/charge/ChargeForm.vue'),
+    },
     // {
     //   path: 'business-project', // The midline path complies with SEO specifications
     //   name: 'BusinessProject',

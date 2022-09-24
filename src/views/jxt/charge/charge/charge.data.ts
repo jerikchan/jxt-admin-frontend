@@ -1,6 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+const colProps = {
+  span: 8,
+};
+
 export const columns: BasicColumn[] = [
   {
     title: '姓名',
@@ -115,38 +119,101 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'studentName',
+    label: '学员名称',
     required: true,
     component: 'Input',
+    colProps,
   },
   {
-    field: 'roleValue',
-    label: '角色值',
+    field: 'chargeType',
+    label: '收费类型',
     required: true,
     component: 'Input',
+    colProps,
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
+    field: 'serviceProject',
+    label: '业务项目',
+    required: true,
+    component: 'Input',
+    colProps,
   },
   {
-    label: '备注',
+    field: 'chargeAmount',
+    label: '收费金额',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'discountAmount',
+    label: '优惠金额',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'realAmount',
+    label: '实收款',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'chargeCode',
+    label: '收款编码',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'paymentMethod',
+    label: '收费方式',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'chargeManName',
+    label: '收费人',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'chargeDate',
+    label: '收费日期',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'invoiceNumber',
+    label: '发票号',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'invoiceAmount',
+    label: '发票金额',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'chargeIntroduction',
+    label: '收费说明',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
     field: 'remark',
-    component: 'InputTextArea',
-  },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
+    label: '备注',
+    required: true,
     component: 'Input',
+    colProps,
   },
 ];

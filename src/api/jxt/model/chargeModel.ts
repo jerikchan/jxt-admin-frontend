@@ -50,7 +50,7 @@ export interface RoleListItem {
   roleValue: string;
   status: number;
   orderNo: string;
-  createTime: string;
+  createDate: string;
 }
 
 export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
