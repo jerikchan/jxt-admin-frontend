@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handlerOper"> 新增学员 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增考试记录 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -22,48 +22,32 @@
                 },
               },
             ]"
-            :dropDownActions="[
-              {
-                label: '添加考试记录',
-                onClick: handleDelete.bind(null, record),
-                disabled:
-                  record.salesManagerId === null ||
-                  record.customerType === '3' ||
-                  record.status === '1' ||
-                  record.customerType === '6',
-              },
-            ]"
           />
         </template>
       </template>
     </BasicTable>
-    <RoleDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { deleteStudentInfo, getStudentListByPage } from '/@/api/jxt/student';
+  import { getExamListByPage, deleteExamInfo } from '/@/api/jxt/exam';
 
-  import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
-
-  import { columns, searchFormSchema } from './data';
+  import { columns, searchFormSchema } from './exam.data';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'AreaManagement',
-    components: { BasicTable, RoleDrawer, TableAction },
+    name: 'ExamTableList',
+    components: { BasicTable, TableAction },
     setup() {
-      const [registerDrawer] = useDrawer();
       const go = useGo();
       const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
-        title: '学员列表',
-        api: getStudentListByPage,
+        title: '考试记录列表',
+        api: getExamListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -74,7 +58,7 @@
         bordered: true,
         showIndexColumn: true,
         actionColumn: {
-          width: 200,
+          width: 80,
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
@@ -82,27 +66,14 @@
         },
       });
 
-      // function handleCreate() {
-      //   openDrawer(true, {
-      //     isUpdate: false,
-      //   });
-      // }
-
-      // function handleEdit(record: Recordable) {
-      //   openDrawer(true, {
-      //     record,
-      //     isUpdate: true,
-      //   });
-      // }
-
       function handlerOper(record: Recordable) {
-        go('/student/student_oper/' + record.id);
+        go('/exam/exam_oper/' + record.id);
       }
 
       async function handleDelete(record: Recordable) {
         console.log(record);
         try {
-          await deleteStudentInfo({ id: record.id });
+          await deleteExamInfo({ id: record.id });
           createMessage.success('删除成功!');
         } catch (error) {
           console.error(error);
@@ -117,7 +88,6 @@
 
       return {
         registerTable,
-        registerDrawer,
         handlerOper,
         handleDelete,
         handleSuccess,

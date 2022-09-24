@@ -32,10 +32,10 @@ insetRouteModuleList(modules);
 insetRouteModuleList(customer);
 insetRouteModuleList(charge);
 insetRouteModuleList(coach);
-insetRouteModuleList(system);
 insetRouteModuleList(student);
 insetRouteModuleList(exam);
 insetRouteModuleList(car);
+insetRouteModuleList(system);
 
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 

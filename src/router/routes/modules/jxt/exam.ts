@@ -16,44 +16,24 @@ const LIST: AppRouteModule = {
     {
       path: 'exam', // The midline path complies with SEO specifications
       name: 'examList',
-      component: () => import('/@/views/jxt/customer/customer/index.vue'),
+      component: () => import('/@/views/jxt/exam/exam/index.vue'),
       meta: {
         title: '考试记录列表',
         requiresAuth: true,
       },
     },
     {
-      path: 'student-statistics', // The midline path complies with SEO specifications
-      name: 'StudentStatistics',
-      component: () => import('/@/views/jxt/customer/customer/index.vue'),
+      path: 'exam_oper/:id',
+      name: 'ExamOper',
       meta: {
-        // locale: 'menu.list.searchTable',
-        title: '在学统计',
-        requiresAuth: true,
-        roles: ['*'],
+        title: '新增/编辑考试记录',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/exam/exam',
       },
-    },
-    {
-      path: 'student-complaint', // The midline path complies with SEO specifications
-      name: 'StudentComplaint',
-      component: () => import('/@/views/jxt/customer/customer/index.vue'),
-      meta: {
-        // locale: 'menu.list.searchTable',
-        title: '学员投诉',
-        requiresAuth: true,
-        roles: ['*'],
-      },
-    },
-    {
-      path: 'student-tag', // The midline path complies with SEO specifications
-      name: 'StudentTag',
-      component: () => import('/@/views/jxt/customer/customer/index.vue'),
-      meta: {
-        // locale: 'menu.list.searchTable',
-        title: '学员标签',
-        requiresAuth: true,
-        roles: ['*'],
-      },
+      component: () => import('/@/views/jxt/exam/exam/ExamForm.vue'),
     },
   ],
 };
