@@ -1,6 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+const colProps = {
+  span: 8,
+};
+
 export const columns: BasicColumn[] = [
   {
     title: '教练姓名',
@@ -116,68 +120,95 @@ const storeTypeOptions: LabelValueOptions = [
 
 export const schemas: FormSchema[] = [
   {
-    field: 'f1',
+    field: 'name',
     component: 'Input',
-    label: '仓库名',
+    label: '姓名',
+    colProps,
+    componentProps: {
+      placeholder: '请输入姓名',
+    },
     required: true,
   },
   {
-    field: 'f2',
+    field: 'mobile',
     component: 'Input',
-    label: '仓库域名',
-    required: true,
+    label: '手机号码',
+    colProps,
     componentProps: {
-      addonBefore: 'http://',
-      addonAfter: 'com',
-    },
-    colProps: {
-      offset: 2,
-    },
-  },
-  {
-    field: 'f3',
-    component: 'Select',
-    label: '仓库管理员',
-    componentProps: {
-      options: basicOptions,
-    },
-    required: true,
-    colProps: {
-      offset: 2,
-    },
-  },
-  {
-    field: 'f4',
-    component: 'Select',
-    label: '审批人',
-    componentProps: {
-      options: basicOptions,
+      placeholder: '请输入手机号码',
     },
     required: true,
   },
   {
-    field: 'f5',
-    component: 'RangePicker',
-    label: '生效日期',
-    required: true,
-    colProps: {
-      offset: 2,
-    },
+    field: 'sex',
+    component: 'Input',
+    label: '性别',
+    colProps,
+    required: false,
   },
   {
-    field: 'f6',
-    component: 'Select',
-    label: '仓库类型',
+    field: 'sex',
+    component: 'Input',
+    label: '性别',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'wechat',
+    component: 'Input',
+    label: '微信号',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'address',
+    component: 'Input',
+    label: '联系地址',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'coachName',
+    component: 'Input',
+    label: '吸烟',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'hobby',
+    component: 'InputTextArea',
+    label: '教练爱好',
+    colProps,
     componentProps: {
-      options: storeTypeOptions,
+      placeholder: '',
+      rows: 4,
     },
-    required: true,
-    colProps: {
-      offset: 2,
+    required: false,
+  },
+  {
+    field: 'hobby',
+    component: 'InputTextArea',
+    label: '教练寄语',
+    colProps,
+    componentProps: {
+      placeholder: '',
+      rows: 4,
     },
+    required: false,
+  },
+  {
+    field: 'hobby',
+    component: 'InputTextArea',
+    label: '教练方言',
+    colProps,
+    componentProps: {
+      placeholder: '',
+      rows: 4,
+    },
+    required: false,
   },
 ];
-export const taskSchemas: FormSchema[] = [
+export const otherSchema: FormSchema[] = [
   {
     field: 't1',
     component: 'Input',

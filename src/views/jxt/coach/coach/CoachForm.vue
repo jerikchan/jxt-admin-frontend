@@ -1,65 +1,96 @@
 <template>
-  <PageWrapper class="high-form" title="教练信息" content=" 用于新增或编辑教练信息的表单">
-    <a-card title="基本信息栏" :bordered="false">
-      <BasicForm @register="register" />
-    </a-card>
-    <a-card title="其他信息栏" :bordered="false" class="!mt-5">
-      <BasicForm @register="registerTask" />
-    </a-card>
-
-    <template #rightFooter>
-      <a-button type="primary" @click="submitAll"> 提交 </a-button>
-    </template>
+  <PageWrapper
+    title="新增/编辑教练员信息"
+    contentBackground
+    content="新增/编辑教练员信息"
+    contentClass="p-4"
+    @back="goback"
+  >
+    <BasicForm @register="register" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent, ref } from 'vue';
+  import { schemas } from './coach.data';
+  import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
-  import { schemas, taskSchemas } from './coach.data';
-  import { Card } from 'ant-design-vue';
+  import { useGo } from '/@/hooks/web/usePage';
+  import { addCoachInfo, updateCoachInfo, detailCoachInfo } from '/@/api/jxt/coach';
+  import { useRoute } from 'vue-router';
 
   export default defineComponent({
-    name: 'FormHightPage',
-    components: { BasicForm, PageWrapper, [Card.name]: Card },
+    name: 'FormBasicPage',
+    components: { BasicForm, PageWrapper },
     setup() {
-      const tableRef = ref<{ getDataSource: () => any } | null>(null);
-
-      const [register, { validate }] = useForm({
-        layout: 'vertical',
-        baseColProps: {
-          span: 6,
+      const { createMessage } = useMessage();
+      const go = useGo();
+      const route = useRoute();
+      const id = ref(route.params?.id);
+      const [register, { validate, setProps, setFieldsValue }] = useForm({
+        labelCol: {
+          span: 8,
+        },
+        wrapperCol: {
+          span: 15,
         },
         schemas: schemas,
-        showActionButtonGroup: false,
-      });
-
-      const [registerTask, { validate: validateTaskForm }] = useForm({
-        layout: 'vertical',
-        baseColProps: {
-          span: 6,
+        actionColOptions: {
+          offset: 8,
+          span: 23,
         },
-        schemas: taskSchemas,
-        showActionButtonGroup: false,
+        submitButtonOptions: {
+          text: '提交',
+        },
+        submitFunc: customSubmitFunc,
       });
 
-      async function submitAll() {
+      async function customSubmitFunc() {
         try {
-          if (tableRef.value) {
-            console.log('table data:', tableRef.value.getDataSource());
+          const values = await validate();
+          setProps({
+            submitButtonOptions: {
+              loading: true,
+            },
+          });
+          if (id.value && id.value !== 'undefined') {
+            Object.assign(values, { id: id.value as string });
+            await updateCoachInfo(values);
+          } else {
+            await addCoachInfo(values);
           }
-
-          const [values, taskValues] = await Promise.all([validate(), validateTaskForm()]);
-          console.log('form data:', values, taskValues);
+          setProps({
+            submitButtonOptions: {
+              loading: false,
+            },
+          });
+          createMessage.success('提交成功!');
+          go('/coach/coach');
         } catch (error) {}
       }
 
-      return { register, registerTask, submitAll, tableRef };
+      function goback() {
+        go('/coach/coach');
+      }
+
+      async function getDetail(id) {
+        if (id.value && id.value !== 'undefined') {
+          const details = await detailCoachInfo({ id: id.value as string });
+          setFieldsValue({
+            ...details,
+          });
+        }
+      }
+
+      getDetail(id);
+
+      return { register, goback };
     },
   });
 </script>
 <style lang="less" scoped>
-  .high-form {
-    padding-bottom: 48px;
+  .form-wrap {
+    padding: 24px;
+    background-color: @component-background;
   }
 </style>
