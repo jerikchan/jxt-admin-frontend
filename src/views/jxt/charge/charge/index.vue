@@ -38,7 +38,7 @@
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
-  import { columns, searchFormSchema } from './role.data';
+  import { columns, searchFormSchema } from './charge.data';
 
   export default defineComponent({
     name: 'AreaManagement',
