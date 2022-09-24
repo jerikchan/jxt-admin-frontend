@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增学员 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增学员 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -10,7 +10,7 @@
             :actions="[
               {
                 icon: 'clarity:note-edit-line',
-                onClick: handleEdit.bind(null, record),
+                onClick: handlerOper.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -33,18 +33,23 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getStudentListByPage } from '/@/api/jxt/student';
+  import { deleteStudentInfo, getStudentListByPage } from '/@/api/jxt/student';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
   import { columns, searchFormSchema } from './data';
 
+  import { useGo } from '/@/hooks/web/usePage';
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   export default defineComponent({
     name: 'AreaManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
-      const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerDrawer] = useDrawer();
+      const go = useGo();
+      const { createMessage } = useMessage();
       const [registerTable, { reload }] = useTable({
         title: '学员列表',
         api: getStudentListByPage,
@@ -56,7 +61,7 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
+        showIndexColumn: true,
         actionColumn: {
           width: 80,
           title: '操作',
@@ -66,21 +71,33 @@
         },
       });
 
-      function handleCreate() {
-        openDrawer(true, {
-          isUpdate: false,
-        });
+      // function handleCreate() {
+      //   openDrawer(true, {
+      //     isUpdate: false,
+      //   });
+      // }
+
+      // function handleEdit(record: Recordable) {
+      //   openDrawer(true, {
+      //     record,
+      //     isUpdate: true,
+      //   });
+      // }
+
+      function handlerOper(record: Recordable) {
+        go('/student/student_oper/' + record.id);
       }
 
-      function handleEdit(record: Recordable) {
-        openDrawer(true, {
-          record,
-          isUpdate: true,
-        });
-      }
-
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        try {
+          await deleteStudentInfo({ id: record.id });
+          createMessage.success('删除成功!');
+        } catch (error) {
+          console.error(error);
+          createMessage.error('删除失败!');
+        }
+        reload();
       }
 
       function handleSuccess() {
@@ -90,8 +107,7 @@
       return {
         registerTable,
         registerDrawer,
-        handleCreate,
-        handleEdit,
+        handlerOper,
         handleDelete,
         handleSuccess,
       };

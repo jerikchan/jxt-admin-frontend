@@ -16,45 +16,25 @@ const LIST: AppRouteModule = {
     {
       path: 'student', // The midline path complies with SEO specifications
       name: 'StudentList',
-      component: () => import('/@/views/jxt/student/index.vue'),
+      component: () => import('/@/views/jxt/student/student/index.vue'),
       meta: {
         title: '学员列表',
         requiresAuth: true,
       },
     },
-    // {
-    //   path: 'student-statistics', // The midline path complies with SEO specifications
-    //   name: 'StudentStatistics',
-    //   component: () => import('/@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '在学统计',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
-    // {
-    //   path: 'student-complaint', // The midline path complies with SEO specifications
-    //   name: 'StudentComplaint',
-    //   component: () => import('/@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '学员投诉',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
-    // {
-    //   path: 'student-tag', // The midline path complies with SEO specifications
-    //   name: 'StudentTag',
-    //   component: () => import('/@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     title: '学员标签',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
+    {
+      path: 'student_oper/:id',
+      name: 'StudentOper',
+      meta: {
+        title: '新增/编辑正式学员信息',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/student/student',
+      },
+      component: () => import('/@/views/jxt/student/student/StudentForm.vue'),
+    },
   ],
 };
 

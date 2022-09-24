@@ -35,17 +35,6 @@ const LIST: AppRouteModule = {
       },
       component: () => import('/@/views/jxt/coach/coach/CoachForm.vue'),
     },
-    // {
-    //   path: 'student-evaluation', // The midline path complies with SEO specifications
-    //   name: 'StudentEvaluation',
-    //   component: () => import('@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     label: '学员评价',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
   ],
 };
 
