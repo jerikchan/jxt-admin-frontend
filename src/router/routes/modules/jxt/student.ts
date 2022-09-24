@@ -36,6 +36,19 @@ const LIST: AppRouteModule = {
       component: () => import('/@/views/jxt/student/student/StudentForm.vue'),
     },
     {
+      path: 'student_exam_oper/:id',
+      name: 'StudentExamOper',
+      meta: {
+        title: '录入学员考试信息',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/student/student',
+      },
+      component: () => import('/@/views/jxt/student/student/StudentExamForm.vue'),
+    },
+    {
       path: 'label', // The midline path complies with SEO specifications
       name: 'StudentLabelList',
       component: () => import('/@/views/jxt/student/label/index.vue'),

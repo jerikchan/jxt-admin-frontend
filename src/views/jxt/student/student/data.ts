@@ -1,5 +1,7 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { ProcessPreview } from '/@/components/ProcessPreview';
+import { h } from 'vue';
 
 const colProps = {
   span: 8,
@@ -25,6 +27,33 @@ export const columns: BasicColumn[] = [
     title: '报名日期',
     dataIndex: 'orderNo',
     width: 150,
+  },
+  {
+    title: '考试进度',
+    dataIndex: 'process',
+    width: 250,
+    customRender: ({ record }) => {
+      return h(ProcessPreview, {
+        processList: record.processList || [
+          {
+            text: '科目一',
+            pass: true,
+          },
+          {
+            text: '科目二',
+            pass: true,
+          },
+          {
+            text: '科目三',
+            pass: false,
+          },
+          {
+            text: '科目四',
+            pass: false,
+          },
+        ],
+      });
+    },
   },
   {
     title: '电话',
@@ -140,5 +169,88 @@ export const formSchema: FormSchema[] = [
       placeholder: '',
       rows: 4,
     },
+  },
+];
+
+export const schemas: FormSchema[] = [
+  {
+    field: 'name',
+    component: 'Input',
+    label: '姓名',
+    colProps,
+    componentProps: {
+      placeholder: '请输入姓名',
+    },
+    required: true,
+  },
+  {
+    field: 'mobile',
+    component: 'Input',
+    label: '联系方式',
+    colProps,
+    componentProps: {
+      placeholder: '请输入联系方式',
+    },
+    required: true,
+  },
+  {
+    field: 'examType',
+    component: 'Input',
+    label: '考试科目',
+    colProps,
+    required: true,
+  },
+  {
+    field: 'examCarType',
+    component: 'Input',
+    label: '报考车型',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'serviceType',
+    component: 'Input',
+    label: '业务类型',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'examTime',
+    component: 'Input',
+    label: '考试时间',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'examAddress',
+    component: 'Input',
+    label: '考试地点',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'fraction',
+    component: 'Input',
+    label: '成绩',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'status',
+    component: 'Input',
+    label: '考试记录状态',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'remark',
+    component: 'InputTextArea',
+    label: '备注',
+    colProps,
+    componentProps: {
+      placeholder: '',
+      rows: 4,
+    },
+    required: false,
   },
 ];

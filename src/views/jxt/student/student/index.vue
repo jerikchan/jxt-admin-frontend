@@ -25,7 +25,7 @@
             :dropDownActions="[
               {
                 label: '添加考试记录',
-                onClick: handleDelete.bind(null, record),
+                onClick: handleExam.bind(null, record),
                 disabled:
                   record.salesManagerId === null ||
                   record.customerType === '3' ||
@@ -82,21 +82,12 @@
         },
       });
 
-      // function handleCreate() {
-      //   openDrawer(true, {
-      //     isUpdate: false,
-      //   });
-      // }
-
-      // function handleEdit(record: Recordable) {
-      //   openDrawer(true, {
-      //     record,
-      //     isUpdate: true,
-      //   });
-      // }
-
       function handlerOper(record: Recordable) {
         go('/student/student_oper/' + record.id);
+      }
+
+      function handleExam(record: Recordable) {
+        go('/student/student_exam_oper/' + record.id);
       }
 
       async function handleDelete(record: Recordable) {
@@ -119,6 +110,7 @@
         registerTable,
         registerDrawer,
         handlerOper,
+        handleExam,
         handleDelete,
         handleSuccess,
       };

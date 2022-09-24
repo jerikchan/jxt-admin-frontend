@@ -1,8 +1,8 @@
 <template>
   <PageWrapper
-    title="新增/编辑考试记录信息"
+    title="录入学员考试记录信息"
     contentBackground
-    content="新增/编辑考试记录信息"
+    content="录入学员考试记录信息"
     contentClass="p-4"
     @back="goback"
   >
@@ -12,11 +12,12 @@
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent, ref } from 'vue';
-  import { schemas } from './exam.data';
+  import { schemas } from './data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
-  import { addExamInfo, updateExamInfo, detailExamInfo } from '/@/api/jxt/exam';
+  import { addExamInfo } from '/@/api/jxt/exam';
+  import { detailStudentInfo } from '/@/api/jxt/student';
   import { useRoute } from 'vue-router';
 
   export default defineComponent({
@@ -54,9 +55,7 @@
             },
           });
           if (id.value && id.value !== 'undefined') {
-            Object.assign(values, { id: id.value as string });
-            await updateExamInfo(values);
-          } else {
+            Object.assign(values, { studentId: id.value as string });
             await addExamInfo(values);
           }
           setProps({
@@ -65,17 +64,17 @@
             },
           });
           createMessage.success('提交成功!');
-          go('/exam/exam');
+          go('/student/student');
         } catch (error) {}
       }
 
       function goback() {
-        go('/exam/exam');
+        go('/student/student');
       }
 
       async function getDetail(id) {
         if (id.value && id.value !== 'undefined') {
-          const details = await detailExamInfo({ id: id.value as string });
+          const details = await detailStudentInfo({ id: id.value as string });
           setFieldsValue({
             ...details,
           });
