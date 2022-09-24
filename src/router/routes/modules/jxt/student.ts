@@ -35,6 +35,28 @@ const LIST: AppRouteModule = {
       },
       component: () => import('/@/views/jxt/student/student/StudentForm.vue'),
     },
+    {
+      path: 'label', // The midline path complies with SEO specifications
+      name: 'StudentLabelList',
+      component: () => import('/@/views/jxt/student/label/index.vue'),
+      meta: {
+        title: '学员标签',
+        requiresAuth: true,
+      },
+    },
+    {
+      path: 'label_oper/:id',
+      name: 'StudentLabelOper',
+      meta: {
+        title: '新增/编辑学员标签',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/student/label',
+      },
+      component: () => import('/@/views/jxt/student/label/LabelForm.vue'),
+    },
   ],
 };
 
