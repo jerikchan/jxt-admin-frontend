@@ -7,6 +7,7 @@ const { mockUrl = '' } = useGlobSetting();
 enum Api {
   StudentPageList = '/student/list',
   StudentLabelPageList = '/label/list',
+  StudentLabelDicList = '/label/dic',
 
   AddStudentInfo = '/student/add',
   UpdateStudentInfo = '/student/update',
@@ -30,6 +31,9 @@ export const getStudentLabelListByPage = (params?: RolePageParams) =>
     { url: Api.StudentLabelPageList, params },
     { apiUrl: mockUrl },
   );
+
+export const getStudentLabelDicList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.StudentLabelDicList, params }, { apiUrl: mockUrl });
 
 export const addStudentInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.AddStudentInfo, params }, { apiUrl: mockUrl });

@@ -3,9 +3,22 @@ import { FormSchema } from '/@/components/Table';
 import { ProcessPreview } from '/@/components/ProcessPreview';
 import { h } from 'vue';
 
+import { getStudentLabelDicList } from '/@/api/jxt/student';
+
 const colProps = {
   span: 8,
 };
+
+const basicOptions: LabelValueOptions = [
+  {
+    label: '男',
+    value: '0',
+  },
+  {
+    label: '女',
+    value: '1',
+  },
+];
 
 export const columns: BasicColumn[] = [
   {
@@ -158,6 +171,63 @@ export const formSchema: FormSchema[] = [
     label: '学员名称',
     required: true,
     component: 'Input',
+    colProps,
+  },
+  {
+    field: 'mobile',
+    label: '联系方式',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'sex',
+    label: '性别',
+    required: false,
+    component: 'Select',
+    componentProps: {
+      options: basicOptions,
+    },
+    colProps,
+  },
+  {
+    field: 'email',
+    label: '邮箱',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'nationality',
+    label: '国籍',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'wechat',
+    label: '微信号',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'papersType',
+    label: '证件类型',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'label',
+    label: '学员标签',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getStudentLabelDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
     colProps,
   },
   {
