@@ -2,6 +2,8 @@ import { isAccountExist } from '/@/api/demo/system';
 import { getAccountList } from '/@/api/jxt/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { h } from 'vue';
+import { MobileOutlined } from '@ant-design/icons-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -40,7 +42,7 @@ export const searchFormSchema: FormSchema[] = [
     field: 'code',
     label: '账户账号',
     component: 'ApiSelect',
-    colProps: { span: 8 },
+    colProps: { span: 12 },
     componentProps: {
       // more details see /src/components/Form/src/components/ApiSelect.vue
       api: getAccountList,
@@ -49,6 +51,19 @@ export const searchFormSchema: FormSchema[] = [
       labelField: 'code',
       valueField: 'code',
       immediate: false,
+    },
+    renderComponentContent: () => {
+      return {
+        option: (args) => {
+          return h(
+            'div',
+            {
+              style: 'display: flex; justify-content: space-between;',
+            },
+            [h('div', args.label), h('div', [h(MobileOutlined), '18812345678'])],
+          );
+        },
+      };
     },
   },
   {
