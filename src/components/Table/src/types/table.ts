@@ -136,6 +136,8 @@ export interface TableSetting {
 }
 
 export interface BasicTableProps<T = any> {
+  // 缓存分页
+  cachePaginationKey?: string;
   // 点击行选中
   clickToRowSelect?: boolean;
   isTreeTable?: boolean;

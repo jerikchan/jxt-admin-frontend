@@ -68,6 +68,9 @@
           // slots: { customRender: 'action' },
           fixed: undefined,
         },
+        pagination: {
+          current: 2,
+        },
       });
 
       function handlerOper(record: Recordable) {

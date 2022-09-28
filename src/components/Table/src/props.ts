@@ -15,6 +15,7 @@ import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING, DEFAULT_SIZE } from 
 import { propTypes } from '/@/utils/propTypes';
 
 export const basicProps = {
+  cachePaginationKey: { type: String },
   clickToRowSelect: { type: Boolean, default: true },
   isTreeTable: Boolean,
   tableSetting: propTypes.shape<TableSetting>({}),

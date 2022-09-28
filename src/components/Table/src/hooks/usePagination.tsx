@@ -5,7 +5,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue';
 import { isBoolean } from '/@/utils/is';
 import { PAGE_SIZE, PAGE_SIZE_OPTIONS } from '../const';
 import { useI18n } from '/@/hooks/web/useI18n';
-
+import { createLocalStorage } from '/@/utils/cache';
 interface ItemRender {
   page: number;
   type: 'page' | 'prev' | 'next';
@@ -26,6 +26,8 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
 
   const configRef = ref<PaginationProps>({});
   const show = ref(true);
+  const ls = createLocalStorage();
+  const lsCurrent = (refProps.cachePaginationKey && ls.get(refProps.cachePaginationKey)) || 1;
 
   watch(
     () => unref(refProps).pagination,
@@ -47,7 +49,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
     }
 
     return {
-      current: 1,
+      current: lsCurrent,
       pageSize: PAGE_SIZE,
       size: 'small',
       defaultPageSize: PAGE_SIZE,
@@ -63,6 +65,9 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
 
   function setPagination(info: Partial<PaginationProps>) {
     const paginationInfo = unref(getPaginationInfo);
+    if (refProps.cachePaginationKey) {
+      ls.set(refProps.cachePaginationKey, info.current);
+    }
     configRef.value = {
       ...(!isBoolean(paginationInfo) ? paginationInfo : {}),
       ...info,

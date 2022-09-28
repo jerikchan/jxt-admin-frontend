@@ -51,7 +51,6 @@ const LIST: AppRouteModule = {
         title: '新增/编辑招生渠道',
         ignoreKeepAlive: true,
         hideMenu: true,
-        showMenu: false,
         hideTab: true,
         currentActiveMenu: '/customer/source',
       },
