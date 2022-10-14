@@ -11,6 +11,7 @@ interface NavItem {
   title: string;
   icon: string;
   color: string;
+  url?: string;
 }
 
 interface DynamicInfoItem {
@@ -22,34 +23,40 @@ interface DynamicInfoItem {
 
 export const navItems: NavItem[] = [
   {
-    title: '首页',
-    icon: 'ion:home-outline',
-    color: '#1fdaca',
-  },
-  {
-    title: '仪表盘',
+    title: '分析页',
     icon: 'ion:grid-outline',
     color: '#bf0c2c',
+    url: '/dashboard/analysis',
   },
   {
-    title: '组件',
+    title: '学员管理',
     icon: 'ion:layers-outline',
     color: '#e18525',
+    url: '/student/student',
+  },
+  {
+    title: '招生管理',
+    icon: 'ion:settings-outline',
+    color: '#3fb27f',
+    url: '/customer',
+  },
+  {
+    title: '教练管理',
+    icon: 'ion:key-outline',
+    color: '#4daf1bc9',
+    url: '/coach',
+  },
+  {
+    title: '考试管理',
+    icon: 'ion:bar-chart-outline',
+    color: '#00d8ff',
+    url: '/exam',
   },
   {
     title: '系统管理',
-    icon: 'ion:settings-outline',
-    color: '#3fb27f',
-  },
-  {
-    title: '权限管理',
-    icon: 'ion:key-outline',
-    color: '#4daf1bc9',
-  },
-  {
-    title: '图表',
-    icon: 'ion:bar-chart-outline',
-    color: '#00d8ff',
+    icon: 'ion:home-outline',
+    color: '#1fdaca',
+    url: '/system',
   },
 ];
 

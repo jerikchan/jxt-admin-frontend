@@ -60,7 +60,11 @@ export const searchFormSchema: FormSchema[] = [
             {
               style: 'display: flex; justify-content: space-between;',
             },
-            [h('div', args.label), h('div', [h(MobileOutlined), '18812345678'])],
+            [
+              h('div', { style: 'width: 33%' }, args.label || '账号'),
+              h('div', { style: 'width: 33%' }, [h(MobileOutlined), args.name || '名称']),
+              h('div', { style: 'width: 33%' }, [h(MobileOutlined), args.mobile || '电话号码']),
+            ],
           );
         },
       };
