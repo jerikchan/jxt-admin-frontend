@@ -24,7 +24,9 @@
         :placeholder="t('sys.login.password')"
       />
     </FormItem>
-
+    <FormItem name="verifyCode" class="enter-x">
+      <BasicDragVerify ref="verifyCode" @success="handleSuccess" />
+    </FormItem>
     <FormItem class="enter-x">
       <Button type="primary" size="large" block @click="handleLogin" :loading="loading">
         {{ t('sys.login.loginButton') }}
@@ -46,6 +48,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
   import { FormItem, Button, InputPassword } from 'ant-design-vue';
+  import { BasicDragVerify } from '/@/components/Verify/index';
 
   const { t } = useI18n();
   const { notification, createErrorModal } = useMessage();
@@ -61,6 +64,7 @@
   const formData = reactive({
     account: '',
     password: '',
+    verifyCode: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -68,6 +72,12 @@
   //onKeyStroke('Enter', handleLogin);
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
+
+  function handleSuccess({ isPassing }) {
+    if (isPassing) {
+      formData.verifyCode = 'ok';
+    }
+  }
 
   async function handleLogin() {
     const data = await validForm();
@@ -77,7 +87,7 @@
       const userInfo = await userStore.login({
         pwd: data.password,
         code: data.account,
-        verifyCode: '123',
+        verifyCode: data.verifyCode,
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {

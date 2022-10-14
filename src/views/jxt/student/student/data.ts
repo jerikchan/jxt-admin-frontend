@@ -6,7 +6,7 @@ import { h } from 'vue';
 import { getStudentLabelDicList } from '/@/api/jxt/student';
 
 const colProps = {
-  span: 8,
+  span: 24,
 };
 
 const basicOptions: LabelValueOptions = [
