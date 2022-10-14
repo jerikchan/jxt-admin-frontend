@@ -9,6 +9,11 @@
           <TableAction
             :actions="[
               {
+                icon: 'clarity:info-standard-line',
+                tooltip: '查看详情',
+                onClick: handleView.bind(null, record),
+              },
+              {
                 icon: 'clarity:note-edit-line',
                 onClick: handlerOper.bind(null, record),
               },
@@ -82,6 +87,10 @@
         },
       });
 
+      function handleView(record: Recordable) {
+        go('/student/student_detail/' + record.id);
+      }
+
       function handlerOper(record: Recordable) {
         go('/student/student_oper/' + record.id);
       }
@@ -109,6 +118,7 @@
       return {
         registerTable,
         registerDrawer,
+        handleView,
         handlerOper,
         handleExam,
         handleDelete,
