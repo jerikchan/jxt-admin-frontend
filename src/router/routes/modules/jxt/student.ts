@@ -36,6 +36,19 @@ const LIST: AppRouteModule = {
       component: () => import('/@/views/jxt/student/student/StudentForm.vue'),
     },
     {
+      path: 'student_detail/:id',
+      name: 'StudentDetail',
+      meta: {
+        title: '正式学员详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/student/student',
+      },
+      component: () => import('/@/views/jxt/student/student/StudentDetail.vue'),
+    },
+    {
       path: 'student_exam_oper/:id',
       name: 'StudentExamOper',
       meta: {
