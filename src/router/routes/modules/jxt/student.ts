@@ -71,6 +71,19 @@ const LIST: AppRouteModule = {
       },
     },
     {
+      path: 'student_label_detail/:id',
+      name: 'StudentLabelDetail',
+      meta: {
+        title: '学员标签详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/student/label',
+      },
+      component: () => import('/@/views/jxt/student/label/StudentLabelDetail.vue'),
+    },
+    {
       path: 'label_oper/:id',
       name: 'StudentLabelOper',
       meta: {

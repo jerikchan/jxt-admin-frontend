@@ -40,15 +40,18 @@ const LIST: AppRouteModule = {
         requiresAuth: true,
       },
     },
-    // {
-    //   path: 'dept', // The midline path complies with SEO specifications
-    //   name: 'DeptManagement',
-    //   component: () => import('/@/views/jxt/system/dept/index.vue'),
-    //   meta: {
-    //     title: '分部管理',
-    //     requiresAuth: true,
-    //   },
-    // },
+    {
+      path: 'account_detail/:id',
+      name: 'AccountDetail',
+      meta: {
+        hideMenu: true,
+        title: '员工详情',
+        hideTab: true,
+        showMenu: false,
+        currentActiveMenu: '/system/account',
+      },
+      component: () => import('/@/views/jxt/system/user/AccountDetail.vue'),
+    },
     {
       path: 'parcel', // The midline path complies with SEO specifications
       name: 'ParcelManagement',

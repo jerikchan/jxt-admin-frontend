@@ -21,6 +21,7 @@ enum Api {
 
   AccountAdd = '/user/add',
   AccountList = '/user/list',
+  AccountDetail = '/user/detail',
 
   AreaPageList = '/area/list',
   DeptPageList = '/dept/list',
@@ -51,3 +52,6 @@ export const getParceltListByPage = (params?: AreaPageParams) =>
 
 export const getAuthListByPage = (params?: AreaPageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.AuthPageList, params }, { apiUrl: mockUrl });
+
+export const getAccountDetail = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.AccountDetail, params }, { apiUrl: mockUrl });
