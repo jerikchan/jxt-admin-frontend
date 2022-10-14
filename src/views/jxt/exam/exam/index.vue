@@ -9,6 +9,11 @@
           <TableAction
             :actions="[
               {
+                icon: 'clarity:info-standard-line',
+                tooltip: '查看详情',
+                onClick: handleView.bind(null, record),
+              },
+              {
                 icon: 'clarity:note-edit-line',
                 onClick: handlerOper.bind(null, record),
               },
@@ -58,11 +63,11 @@
         bordered: true,
         showIndexColumn: true,
         actionColumn: {
-          width: 80,
+          width: 150,
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
-          fixed: undefined,
+          fixed: 'right',
         },
       });
 
@@ -82,6 +87,10 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        go('/exam/exam_detail/' + record.id);
+      }
+
       function handleSuccess() {
         reload();
       }
@@ -89,6 +98,7 @@
       return {
         registerTable,
         handlerOper,
+        handleView,
         handleDelete,
         handleSuccess,
       };

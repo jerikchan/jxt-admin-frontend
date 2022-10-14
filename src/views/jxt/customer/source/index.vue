@@ -9,6 +9,11 @@
           <TableAction
             :actions="[
               {
+                icon: 'clarity:info-standard-line',
+                tooltip: '查看详情',
+                onClick: handleView.bind(null, record),
+              },
+              {
                 icon: 'clarity:note-edit-line',
                 onClick: handlerOper.bind(null, record),
               },
@@ -62,11 +67,11 @@
         bordered: true,
         showIndexColumn: true,
         actionColumn: {
-          width: 80,
+          width: 200,
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
-          fixed: undefined,
+          fixed: 'right',
         },
         pagination: {
           current: 2,
@@ -89,6 +94,10 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        go('/customer/customer_source_detail/' + record.id);
+      }
+
       function handleSuccess() {
         reload();
       }
@@ -97,6 +106,7 @@
         registerTable,
         registerDrawer,
         handlerOper,
+        handleView,
         handleDelete,
         handleSuccess,
       };

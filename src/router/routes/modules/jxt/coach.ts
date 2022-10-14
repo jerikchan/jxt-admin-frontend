@@ -23,6 +23,19 @@ const LIST: AppRouteModule = {
       },
     },
     {
+      path: 'coach_detail/:id',
+      name: 'CoachDetail',
+      meta: {
+        title: '教练员详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/coach/coach',
+      },
+      component: () => import('/@/views/jxt/coach/coach/CoachDetail.vue'),
+    },
+    {
       path: 'coach_oper/:id',
       name: 'CoachOper',
       meta: {

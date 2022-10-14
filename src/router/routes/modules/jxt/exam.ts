@@ -35,6 +35,19 @@ const LIST: AppRouteModule = {
       },
       component: () => import('/@/views/jxt/exam/exam/ExamForm.vue'),
     },
+    {
+      path: 'exam_detail/:id',
+      name: 'ExamDetail',
+      meta: {
+        title: '考试记录详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/exam/exam',
+      },
+      component: () => import('/@/views/jxt/exam/exam/ExamDetail.vue'),
+    },
   ],
 };
 

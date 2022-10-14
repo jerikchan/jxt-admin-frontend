@@ -36,6 +36,19 @@ const LIST: AppRouteModule = {
       component: () => import('/@/views/jxt/customer/customer/CustomerForm.vue'),
     },
     {
+      path: 'customer_detail/:id',
+      name: 'CustomerDetail',
+      meta: {
+        title: '潜在学员详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/customer',
+      },
+      component: () => import('/@/views/jxt/customer/customer/CustomerDetail.vue'),
+    },
+    {
       path: 'source', // The midline path complies with SEO specifications
       name: 'SourceList',
       component: () => import('/@/views/jxt/customer/source/index.vue'),
@@ -55,6 +68,19 @@ const LIST: AppRouteModule = {
         currentActiveMenu: '/customer/source',
       },
       component: () => import('/@/views/jxt/customer/source/CustomerSourceForm.vue'),
+    },
+    {
+      path: 'customer_source_detail/:id',
+      name: 'CustomerSourceDetail',
+      meta: {
+        title: '招生渠道详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/source',
+      },
+      component: () => import('/@/views/jxt/customer/source/CustomerSourceDetail.vue'),
     },
     {
       path: 'course', // The midline path complies with SEO specifications
@@ -77,6 +103,19 @@ const LIST: AppRouteModule = {
         currentActiveMenu: '/customer/course',
       },
       component: () => import('/@/views/jxt/customer/course/CourseForm.vue'),
+    },
+    {
+      path: 'customer_course_detail/:id',
+      name: 'CustomerCourseDetail',
+      meta: {
+        title: '招生课程详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/course',
+      },
+      component: () => import('/@/views/jxt/customer/course/CourseDetail.vue'),
     },
   ],
 };
