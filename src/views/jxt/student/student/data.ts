@@ -27,8 +27,13 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '联系方式',
+    dataIndex: 'mobile',
+    width: 200,
+  },
+  {
     title: '标签',
-    dataIndex: 'roleValue',
+    dataIndex: 'label',
     width: 180,
   },
   {
@@ -67,11 +72,6 @@ export const columns: BasicColumn[] = [
         ],
       });
     },
-  },
-  {
-    title: '电话',
-    dataIndex: 'orderNo',
-    width: 150,
   },
   {
     title: '第一证件号',

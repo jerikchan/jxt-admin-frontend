@@ -1,6 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+import { h } from 'vue';
+
+import { Image } from 'ant-design-vue';
+
 const colProps = {
   span: 8,
 };
@@ -15,6 +19,18 @@ export const columns: BasicColumn[] = [
     title: '联系方式',
     dataIndex: 'mobile',
     width: 200,
+  },
+  {
+    title: '成绩图',
+    dataIndex: 'preview',
+    width: 150,
+    customRender: ({ record }) => {
+      return h(Image, {
+        src: record.preview || '/src/assets/images/logo.png',
+        width: 60,
+        height: 60,
+      });
+    },
   },
   {
     title: '学习驾驶证明',
