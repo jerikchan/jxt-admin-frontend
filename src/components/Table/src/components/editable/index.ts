@@ -33,6 +33,7 @@ export function renderEditCell(column: BasicColumn) {
         const res = await record.onSubmitEdit?.();
         if (res) {
           record.editable = false;
+          record.isNew = false;
           return true;
         }
         return false;
