@@ -8,7 +8,7 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { uploadApi } from '/@/api/sys/upload';
 
 const colProps = {
-  span: 8,
+  span: 18,
 };
 
 export const columns: BasicColumn[] = [
@@ -143,6 +143,7 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
     colProps,
+    suffix: '元',
   },
   {
     field: 'period',
@@ -150,6 +151,7 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
     colProps,
+    suffix: '小时',
   },
   {
     field: 'preview',

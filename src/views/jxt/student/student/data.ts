@@ -4,21 +4,20 @@ import { ProcessPreview } from '/@/components/ProcessPreview';
 import { h } from 'vue';
 
 import { getStudentLabelDicList } from '/@/api/jxt/student';
+import { getCourseDicList } from '/@/api/jxt/customer';
+import { getCoachDicList } from '/@/api/jxt/coach';
+import {
+  getPaperTypeList,
+  getSecondPaperTypeList,
+  getExamModelList,
+  getServiceModeList,
+  getShenqingList,
+  getExamCarTypeList,
+} from '/@/api/jxt/dic';
 
 const colProps = {
-  span: 24,
+  span: 8,
 };
-
-const basicOptions: LabelValueOptions = [
-  {
-    label: '男',
-    value: '0',
-  },
-  {
-    label: '女',
-    value: '1',
-  },
-];
 
 export const columns: BasicColumn[] = [
   {
@@ -181,12 +180,29 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
+    field: 'birthday',
+    label: '生日',
+    required: false,
+    component: 'DatePicker',
+    colProps,
+  },
+  {
     field: 'sex',
     label: '性别',
     required: false,
-    component: 'Select',
+    component: 'RadioGroup',
+    defaultValue: 0,
     componentProps: {
-      options: basicOptions,
+      options: [
+        {
+          label: '男',
+          value: 0,
+        },
+        {
+          label: '女',
+          value: 1,
+        },
+      ],
     },
     colProps,
   },
@@ -195,6 +211,47 @@ export const formSchema: FormSchema[] = [
     label: '邮箱',
     required: false,
     component: 'Input',
+    colProps,
+    suffix: '.com',
+  },
+  {
+    field: 'jiguan',
+    label: '籍贯',
+    required: true,
+    component: 'RadioGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        {
+          label: '本地',
+          value: 0,
+        },
+        {
+          label: '外地',
+          value: 1,
+        },
+      ],
+    },
+    colProps,
+  },
+  {
+    field: 'shili',
+    label: '视力',
+    required: false,
+    component: 'RadioGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        {
+          label: '良好',
+          value: 0,
+        },
+        {
+          label: '近视',
+          value: 1,
+        },
+      ],
+    },
     colProps,
   },
   {
@@ -205,6 +262,27 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
+    field: 'yzbh',
+    label: '邮政编号',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'youjidizhi',
+    label: '邮寄地址',
+    required: true,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'zhengjianguoqiriqi',
+    label: '证件过期日期',
+    required: false,
+    component: 'DatePicker',
+    colProps,
+  },
+  {
     field: 'wechat',
     label: '微信号',
     required: false,
@@ -212,10 +290,210 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'papersType',
-    label: '证件类型',
+    field: 'zhunkaozhenghao',
+    label: '准考证号',
     required: false,
     component: 'Input',
+    colProps,
+  },
+  {
+    field: 'papersType',
+    label: '证件类型',
+    required: true,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getPaperTypeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'zhengjianbianhao',
+    label: '证件编号',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'zhengjiandizhi',
+    label: '证件地址',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'SecondPaperType',
+    label: '第二证件类型',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSecondPaperTypeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'dierzhengjianhaoma',
+    label: '第二证件号码',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'dierzhengjiandizhi',
+    label: '第二证件地址',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'dierzhengjianguoqiriqi',
+    label: '第二证件过期日期',
+    required: false,
+    component: 'DatePicker',
+    colProps,
+  },
+  {
+    field: 'shengao',
+    label: '身高',
+    required: false,
+    component: 'Input',
+    colProps,
+    suffix: 'cm',
+  },
+  {
+    field: 'shifouqitajiaxiaobaoguoming',
+    label: '是否其他驾校报过名',
+    required: false,
+    component: 'RadioGroup',
+    defaultValue: 1,
+    componentProps: {
+      options: [
+        {
+          label: '否',
+          value: 1,
+        },
+        {
+          label: '是',
+          value: 0,
+        },
+      ],
+    },
+    colProps,
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps,
+    componentProps: {
+      placeholder: '',
+      rows: 4,
+    },
+  },
+];
+
+export const formSchemaTwo: FormSchema[] = [
+  {
+    field: 'serviceType',
+    label: '业务模式',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getServiceModeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '报考模式',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getExamModelList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '申请类型',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getShenqingList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '课程',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCourseDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '报考车型',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getExamCarTypeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '原准驾车型',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getExamCarTypeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'baokaomoshi',
+    label: '教练员',
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCoachDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
+    colProps,
+  },
+  {
+    field: 'dierzhengjianguoqiriqi',
+    label: '报名日期',
+    required: false,
+    component: 'DatePicker',
     colProps,
   },
   {
@@ -231,14 +509,32 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'remark',
-    label: '备注',
-    component: 'InputTextArea',
+    field: 'dierzhengjianguoqiriqi',
+    label: '受理号',
+    required: false,
+    component: 'Input',
     colProps,
-    componentProps: {
-      placeholder: '',
-      rows: 4,
-    },
+  },
+  {
+    field: 'dierzhengjianguoqiriqi',
+    label: '所属分部',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'dierzhengjianguoqiriqi',
+    label: '所属训练场',
+    required: false,
+    component: 'Input',
+    colProps,
+  },
+  {
+    field: 'dierzhengjianguoqiriqi',
+    label: '所属机构',
+    required: false,
+    component: 'Input',
+    colProps,
   },
 ];
 

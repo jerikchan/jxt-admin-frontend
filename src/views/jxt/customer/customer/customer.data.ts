@@ -1,6 +1,9 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+import { getSourceDicList, getCourseDicList } from '/@/api/jxt/customer';
+import { getCoachDicList } from '/@/api/jxt/coach';
+
 export const columns: BasicColumn[] = [
   {
     title: '姓名',
@@ -60,22 +63,48 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
-    label: '角色名称',
+    field: 'name',
+    label: '姓名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
+    field: 'mobile',
+    label: '联系电话',
+    // component: 'Input',
+    // componentProps: {
+    //   options: [
+    //     { label: '启用', value: '0' },
+    //     { label: '停用', value: '1' },
+    //   ],
+    // },
+    // colProps: { span: 8 },
+    component: 'Input',
     colProps: { span: 8 },
+  },
+  {
+    field: 'followManName',
+    label: '跟进人',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'introductionName',
+    label: '介绍人',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'customerSource',
+    label: '来源',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSourceDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
+    colProps: { span: 3 },
   },
 ];
 
@@ -144,31 +173,48 @@ export const customerFormSchema: FormSchema[] = [
   },
   {
     field: 'source',
-    component: 'Input',
     label: '来源',
     colProps,
     required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSourceDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
   },
   {
     field: 'sex',
-    component: 'Input',
     label: '性别',
     colProps,
     required: false,
-  },
-  {
-    field: 'sex',
-    component: 'Input',
-    label: '性别',
-    colProps,
-    required: false,
+    component: 'RadioGroup',
+    componentProps: {
+      options: [
+        {
+          label: '男',
+          value: 0,
+        },
+        {
+          label: '女',
+          value: 1,
+        },
+      ],
+    },
   },
   {
     field: 'purposeCourse',
-    component: 'Input',
     label: '意向课程',
     colProps,
     required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCourseDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
   },
   {
     field: 'introductionName',
@@ -179,10 +225,16 @@ export const customerFormSchema: FormSchema[] = [
   },
   {
     field: 'coachName',
-    component: 'Input',
     label: '教练员',
     colProps,
     required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCoachDicList,
+      labelField: 'name',
+      valueField: 'name',
+      disabled: false,
+    },
   },
   // {
   //   field: 'time',

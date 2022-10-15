@@ -13,11 +13,13 @@ enum Api {
   UpdateSource = '/source/update',
   DeleteSource = '/source/delete',
   DetailSource = '/source/detail',
+  SourceDicList = '/source/dic',
 
   AddCourse = '/course/add',
   UpdateCourse = '/course/update',
   DeleteCourse = '/course/delete',
   DetailCourse = '/course/detail',
+  CourceDicList = '/course/dic',
 
   AddCustomer = '/customer/add',
   UpdateCustomer = '/customer/update',
@@ -72,3 +74,9 @@ export const deleteCustomer = (params?: {}) =>
 
 export const detailCustomer = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailCustomer, params }, { apiUrl: mockUrl });
+
+export const getSourceDicList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.SourceDicList, params }, { apiUrl: mockUrl });
+
+export const getCourseDicList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.CourceDicList, params }, { apiUrl: mockUrl });

@@ -13,6 +13,7 @@ enum Api {
   UpdateCoachInfo = '/coach/update',
   DeleteCoachInfo = '/coach/delete',
   DetailCoachInfo = '/coach/detail',
+  CoachDicList = '/coach/dic',
 }
 
 export const getCoachListByPage = (params?: RolePageParams) =>
@@ -35,3 +36,6 @@ export const deleteCoachInfo = (params?: {}) =>
 
 export const detailCoachInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailCoachInfo, params }, { apiUrl: mockUrl });
+
+export const getCoachDicList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.CoachDicList, params }, { apiUrl: mockUrl });

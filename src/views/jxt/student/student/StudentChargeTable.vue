@@ -1,0 +1,225 @@
+<template>
+  <div>
+    <BasicTable @register="registerTable" @edit-change="handleEditChange">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction :actions="createActions(record, column)" />
+        </template>
+      </template>
+    </BasicTable>
+    <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增收费记录 </a-button>
+  </div>
+</template>
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import { getChargeTypeList, getPayMethodTypeList } from '/@/api/jxt/dic';
+  import {
+    BasicTable,
+    useTable,
+    TableAction,
+    BasicColumn,
+    ActionItem,
+    EditRecordRow,
+  } from '/@/components/Table';
+
+  const columns: BasicColumn[] = [
+    {
+      title: '收费类型',
+      dataIndex: 'name',
+      editRow: true,
+      editComponent: 'ApiSelect',
+      editComponentProps: {
+        api: getChargeTypeList,
+        resultField: 'list',
+        labelField: 'label',
+        valueField: 'value',
+      },
+    },
+    {
+      title: '业务项目',
+      dataIndex: 'no',
+      editRow: true,
+    },
+    {
+      title: '收费金额',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '优惠金额',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '代收代支款',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '预收款',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '实收款',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '收款编码',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '收费方式',
+      dataIndex: 'dept',
+      editRow: true,
+      editComponent: 'ApiSelect',
+      editComponentProps: {
+        api: getPayMethodTypeList,
+        resultField: 'list',
+        labelField: 'label',
+        valueField: 'value',
+      },
+    },
+    {
+      title: '收费状态',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '收费日期',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '录入日期',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+    {
+      title: '录入人',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+    {
+      title: '收费人',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '审核状态',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+    {
+      title: '审核时间',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+    {
+      title: '审核人',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+    {
+      title: '发票号',
+      dataIndex: 'dept',
+      editRow: true,
+    },
+    {
+      title: '发票金额',
+      dataIndex: 'dept',
+      editRow: false,
+    },
+  ];
+
+  const data: any[] = [];
+  export default defineComponent({
+    components: { BasicTable, TableAction },
+    setup() {
+      const [registerTable, { getDataSource }] = useTable({
+        columns: columns,
+        showIndexColumn: false,
+        dataSource: data,
+        actionColumn: {
+          width: 160,
+          title: '操作',
+          dataIndex: 'action',
+          // slots: { customRender: 'action' },
+        },
+        pagination: false,
+      });
+
+      function handleEdit(record: EditRecordRow) {
+        record.onEdit?.(true);
+      }
+
+      function handleCancel(record: EditRecordRow) {
+        record.onEdit?.(false);
+        if (record.isNew) {
+          const data = getDataSource();
+          const index = data.findIndex((item) => item.key === record.key);
+          data.splice(index, 1);
+        }
+      }
+
+      function handleSave(record: EditRecordRow) {
+        record.onEdit?.(false, true);
+      }
+
+      function handleEditChange(data: Recordable) {
+        console.log(data);
+      }
+
+      function handleAdd() {
+        const data = getDataSource();
+        const addRow: EditRecordRow = {
+          name: '',
+          no: '',
+          dept: '',
+          editable: true,
+          isNew: true,
+          key: `${Date.now()}`,
+        };
+        data.push(addRow);
+      }
+
+      function createActions(record: EditRecordRow, column: BasicColumn): ActionItem[] {
+        if (!record.editable) {
+          return [
+            {
+              label: '编辑',
+              onClick: handleEdit.bind(null, record),
+            },
+            {
+              label: '删除',
+            },
+          ];
+        }
+        return [
+          {
+            label: '保存',
+            onClick: handleSave.bind(null, record, column),
+          },
+          {
+            label: '取消',
+            popConfirm: {
+              title: '是否取消编辑',
+              confirm: handleCancel.bind(null, record, column),
+            },
+          },
+        ];
+      }
+
+      return {
+        registerTable,
+        handleEdit,
+        createActions,
+        handleAdd,
+        getDataSource,
+        handleEditChange,
+      };
+    },
+  });
+</script>
