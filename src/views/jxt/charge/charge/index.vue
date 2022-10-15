@@ -50,7 +50,7 @@
       const [registerDrawer] = useDrawer();
       const { createMessage } = useMessage();
       const go = useGo();
-      const [registerTable, { reload }] = useTable({
+      const [registerTable, { reload, getForm }] = useTable({
         title: '收费记录列表',
         api: getChargeListByPage,
         columns,
@@ -71,8 +71,10 @@
         },
       });
 
-      function handlerOper(record: Recordable) {
-        go('/charge/charge_oper/' + record.id);
+      function handlerOper() {
+        const formRef = getForm();
+        const value = formRef.getFieldsValue();
+        go('/charge/charge_oper/' + value.studentId);
       }
 
       async function handleDelete(record: Recordable) {

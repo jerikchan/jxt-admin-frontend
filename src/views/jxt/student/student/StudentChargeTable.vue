@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref, unref } from 'vue';
   import { getChargeTypeList, getPayMethodTypeList } from '/@/api/jxt/dic';
   import {
     BasicTable,
@@ -21,33 +21,35 @@
     ActionItem,
     EditRecordRow,
   } from '/@/components/Table';
+  import { useRoute } from 'vue-router';
+  import { getChargeListByStudent } from '/@/api/jxt/charge';
 
   const columns: BasicColumn[] = [
     {
       title: '收费类型',
-      dataIndex: 'name',
+      dataIndex: 'chargeType',
       editRow: true,
       editComponent: 'ApiSelect',
       editComponentProps: {
         api: getChargeTypeList,
         resultField: 'list',
         labelField: 'label',
-        valueField: 'value',
+        valueField: 'id',
       },
     },
     {
       title: '业务项目',
-      dataIndex: 'no',
+      dataIndex: 'serviceProject',
       editRow: true,
     },
     {
       title: '收费金额',
-      dataIndex: 'dept',
+      dataIndex: 'chargeAmount',
       editRow: true,
     },
     {
       title: '优惠金额',
-      dataIndex: 'dept',
+      dataIndex: 'discountAmount',
       editRow: true,
     },
     {
@@ -134,14 +136,17 @@
     },
   ];
 
-  const data: any[] = [];
+  // const data: any[] = [];
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
+      const route = useRoute();
+      const id = ref(route.params?.id);
       const [registerTable, { getDataSource }] = useTable({
         columns: columns,
         showIndexColumn: false,
-        dataSource: data,
+        // dataSource: data,
+        api: getChargeListByStudent.bind(null, { studentId: unref(id) }),
         actionColumn: {
           width: 160,
           title: '操作',
@@ -179,9 +184,9 @@
       function handleAdd() {
         const data = getDataSource();
         const addRow: EditRecordRow = {
-          name: '',
-          no: '',
-          dept: '',
+          // name: '',
+          // no: '',
+          // dept: '',
           editable: true,
           isNew: true,
           key: `${Date.now()}`,
