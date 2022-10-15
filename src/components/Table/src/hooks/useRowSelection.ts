@@ -14,6 +14,7 @@ export function useRowSelection(
   const selectedRowRef = ref<Recordable[]>([]);
 
   const getRowSelectionRef = computed((): TableRowSelection | null => {
+    debugger;
     const { rowSelection } = unref(propsRef);
     if (!rowSelection) {
       return null;
@@ -25,6 +26,8 @@ export function useRowSelection(
         setSelectedRowKeys(selectedRowKeys);
       },
       ...omit(rowSelection, ['onChange']),
+      // 当数据被删除时仍然保留选项的 key
+      preserveSelectedRowKeys: true,
     };
   });
 
@@ -63,6 +66,7 @@ export function useRowSelection(
   });
 
   function setSelectedRowKeys(rowKeys: string[]) {
+    debugger;
     selectedRowKeysRef.value = rowKeys;
     const allSelectedRows = findNodeAll(
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
@@ -84,6 +88,7 @@ export function useRowSelection(
   }
 
   function clearSelectedRowKeys() {
+    debugger;
     selectedRowRef.value = [];
     selectedRowKeysRef.value = [];
   }

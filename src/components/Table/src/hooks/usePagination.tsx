@@ -64,6 +64,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
   });
 
   function setPagination(info: Partial<PaginationProps>) {
+    debugger;
     const paginationInfo = unref(getPaginationInfo);
     if (refProps.cachePaginationKey) {
       ls.set(refProps.cachePaginationKey, info.current);

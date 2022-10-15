@@ -120,7 +120,7 @@ export const basicProps = {
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((record: Recordable) => string)>,
-    default: '',
+    default: 'id',
   },
   bordered: propTypes.bool,
   pagination: {

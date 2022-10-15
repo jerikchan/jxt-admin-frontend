@@ -33,6 +33,7 @@ export function renderEditCell(column: BasicColumn) {
         const res = await record.onSubmitEdit?.();
         if (res) {
           record.editable = false;
+          // 保存过就不是新数据了
           record.isNew = false;
           return true;
         }

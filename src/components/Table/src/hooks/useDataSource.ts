@@ -71,6 +71,7 @@ export function useDataSource(
   ) {
     const { clearSelectOnPageChange, sortFn, filterFn } = unref(propsRef);
     if (clearSelectOnPageChange) {
+      debugger;
       clearSelectedRowKeys();
     }
     setPagination(pagination);
@@ -240,6 +241,7 @@ export function useDataSource(
   }
 
   async function fetch(opt?: FetchParams) {
+    debugger;
     const {
       api,
       searchInfo,
