@@ -1,5 +1,9 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getStudentList } from '/@/api/jxt/student';
+
+import { MobileOutlined } from '@ant-design/icons-vue';
+import { h } from 'vue';
 
 const colProps = {
   span: 8,
@@ -110,10 +114,34 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'studentName',
-    label: '姓名',
-    component: 'Input',
+    field: 'studentId',
+    label: '学员姓名',
+    component: 'ApiSelect',
     colProps: { span: 8 },
+    componentProps: {
+      api: getStudentList,
+      showSearch: true,
+      resultField: 'items',
+      labelField: 'name',
+      valueField: 'id',
+      immediate: false,
+    },
+    renderComponentContent: () => {
+      return {
+        option: (args) => {
+          return h(
+            'div',
+            {
+              style: 'display: flex; justify-content: space-between;',
+            },
+            [
+              h('div', { style: 'width: 33%' }, args.label || '账号'),
+              h('div', { style: 'width: 33%' }, [h(MobileOutlined), args.mobile || '电话号码']),
+            ],
+          );
+        },
+      };
+    },
   },
 ];
 

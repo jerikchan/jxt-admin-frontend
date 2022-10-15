@@ -6,27 +6,38 @@
     contentClass="p-4"
     @back="goback"
   >
-    <BasicForm @register="register" />
+    <BasicForm @register="register" v-if="flag" />
+    <StudentChargeTable ref="chargeTable" />
+    <template #rightFooter>
+      <a-button type="primary" @click="customSubmitFunc"> 提交 </a-button>
+    </template>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, unref } from 'vue';
   import { formSchema } from './charge.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
-  import { addChargeInfo, detailCHarge, updateChargeInfo } from '/@/api/jxt/charge';
+  import {
+    // addChargeInfo,
+    // detailCHarge,
+    // updateChargeInfo,
+    addChargeInfoList,
+  } from '/@/api/jxt/charge';
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
+  import StudentChargeTable from '/@/views/jxt/student/student/StudentChargeTable.vue';
 
   export default defineComponent({
     name: 'FormBasicPage',
-    components: { BasicForm, PageWrapper },
+    components: { BasicForm, PageWrapper, StudentChargeTable },
     setup() {
       const { createMessage } = useMessage();
       const go = useGo();
       const route = useRoute();
       const id = ref(route.params?.id);
+      const flag = ref(false);
       const [register, { validate, setProps, setFieldsValue }] = useForm({
         labelCol: {
           span: 8,
@@ -42,10 +53,11 @@
         submitButtonOptions: {
           text: '提交',
         },
-        submitFunc: customSubmitFunc,
+        submitFunc: customSubmitFunc2,
       });
+      const chargeTable = ref(null);
 
-      async function customSubmitFunc() {
+      async function customSubmitFunc2() {
         try {
           const values = await validate();
           setProps({
@@ -68,6 +80,18 @@
           go('/charge/charge');
         } catch (error) {}
       }
+      async function customSubmitFunc() {
+        try {
+          const data = chargeTable.value.getDataSource();
+          const list = data.map((item) => {
+            return item.editValueRefs;
+          });
+          debugger;
+          await addChargeInfoList({ list, studentId: unref(id) });
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
       function goback() {
         go('/charge/charge');
@@ -82,9 +106,11 @@
         }
       }
 
-      getDetail(id);
+      if (flag.value) {
+        getDetail(id);
+      }
 
-      return { register, goback };
+      return { register, goback, chargeTable, customSubmitFunc, flag };
     },
   });
 </script>

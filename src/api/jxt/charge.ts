@@ -1,4 +1,4 @@
-import { RolePageParams, RolePageListGetResultModel } from './model/systemModel';
+import { RolePageParams, RoleParams, RolePageListGetResultModel } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
 
@@ -11,6 +11,7 @@ enum Api {
   ServicePageList = '/service/list',
 
   AddChargeInfo = '/charge/add',
+  AddChargeInfoList = '/charge/addList',
   UpdateChargeInfo = '/charge/update',
   DeleteChargeInfo = '/charge/delete',
   DetailCharge = '/charge/detail',
@@ -22,6 +23,9 @@ enum Api {
 }
 
 export const getChargeListByPage = (params?: RolePageParams) =>
+  defHttp.get<RolePageListGetResultModel>({ url: Api.ChargePageList, params }, { apiUrl: mockUrl });
+
+export const getChargeListByStudent = (params?: RoleParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.ChargePageList, params }, { apiUrl: mockUrl });
 
 export const getSourceListByPage = (params?: RolePageParams) =>
@@ -38,6 +42,9 @@ export const getServicePageList = (params?: RolePageParams) =>
 
 export const addChargeInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.AddChargeInfo, params }, { apiUrl: mockUrl });
+
+export const addChargeInfoList = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddChargeInfoList, params }, { apiUrl: mockUrl });
 
 export const updateChargeInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.UpdateChargeInfo, params }, { apiUrl: mockUrl });

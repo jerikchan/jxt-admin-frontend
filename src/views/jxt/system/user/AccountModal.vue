@@ -63,9 +63,7 @@
           // TODO custom api
           console.log(values);
           if (!unref(isUpdate)) {
-            debugger;
             await addAccount(values);
-            debugger;
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });

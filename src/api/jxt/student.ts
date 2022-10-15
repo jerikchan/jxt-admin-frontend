@@ -26,6 +26,9 @@ export const getStudentListByPage = (params?: RolePageParams) =>
     { apiUrl: mockUrl },
   );
 
+export const getStudentList = () =>
+  defHttp.get<RolePageListGetResultModel>({ url: Api.StudentPageList }, { apiUrl: mockUrl });
+
 export const getStudentLabelListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>(
     { url: Api.StudentLabelPageList, params },

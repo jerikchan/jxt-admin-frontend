@@ -14,7 +14,6 @@ export function useRowSelection(
   const selectedRowRef = ref<Recordable[]>([]);
 
   const getRowSelectionRef = computed((): TableRowSelection | null => {
-    debugger;
     const { rowSelection } = unref(propsRef);
     if (!rowSelection) {
       return null;
@@ -66,7 +65,6 @@ export function useRowSelection(
   });
 
   function setSelectedRowKeys(rowKeys: string[]) {
-    debugger;
     selectedRowKeysRef.value = rowKeys;
     const allSelectedRows = findNodeAll(
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
@@ -88,7 +86,6 @@ export function useRowSelection(
   }
 
   function clearSelectedRowKeys() {
-    debugger;
     selectedRowRef.value = [];
     selectedRowKeysRef.value = [];
   }
