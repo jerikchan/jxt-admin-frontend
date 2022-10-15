@@ -62,3 +62,27 @@ export const getPayMethodTypeList = (params?: {}) =>
     { url: Api.DicList, params: { ...params, type: '收费方式' } },
     { apiUrl: mockUrl },
   );
+
+export const getCountryProLevelList = (params?: {}) =>
+  defHttp.get<{}>(
+    { url: Api.DicList, params: { ...params, type: '国家职业等级' } },
+    { apiUrl: mockUrl },
+  );
+
+export const getCoachServiceTypeList = (params?: {}) =>
+  defHttp.get<{}>(
+    { url: Api.DicList, params: { ...params, type: '教练业务类型' } },
+    { apiUrl: mockUrl },
+  );
+
+export const getWorkStautsList = (params?: {}) =>
+  defHttp.get<{}>(
+    { url: Api.DicList, params: { ...params, type: '在岗状态' } },
+    { apiUrl: mockUrl },
+  );
+
+export const getReciveOrNotTypeList = (params?: {}) =>
+  defHttp.get<{}>(
+    { url: Api.DicList, params: { ...params, type: '是否接送' } },
+    { apiUrl: mockUrl },
+  );

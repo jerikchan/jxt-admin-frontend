@@ -57,9 +57,22 @@ const LIST: AppRouteModule = {
       name: 'ParcelManagement',
       component: () => import('/@/views/jxt/system/parcel/index.vue'),
       meta: {
-        title: '机构管理',
+        title: '分部管理',
         requiresAuth: true,
       },
+    },
+    {
+      path: 'parcel_oper/:id',
+      name: 'ParcelOper',
+      meta: {
+        title: '新增/编辑分部',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/exam/exam',
+      },
+      component: () => import('/@/views/jxt/system/parcel/ParcelForm.vue'),
     },
     {
       path: 'auth', // The midline path complies with SEO specifications

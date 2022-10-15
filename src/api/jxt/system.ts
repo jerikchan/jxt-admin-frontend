@@ -18,6 +18,7 @@ enum Api {
   MenuList = '/system/getMenuList',
   RolePageList = '/role/list',
   GetAllRoleList = '/system/getAllRoleList',
+  GetParceltListByPage = '/parcel/list',
 
   AccountAdd = '/user/add',
   AccountList = '/user/list',
@@ -27,6 +28,11 @@ enum Api {
   DeptPageList = '/dept/list',
   ParcelPageList = '/parcel/list',
   AuthPageList = '/auth/list',
+
+  AddPracelInfo = '/parcel/add',
+  UpdateParcelInfo = '/parcel/update',
+  DeleteParcelInfo = '/parcel/delete',
+  DetailParcelInfo = '/parcel/detail',
 }
 
 export const getDeptList = (params: AccountParams) =>
@@ -55,3 +61,15 @@ export const getAuthListByPage = (params?: AreaPageParams) =>
 
 export const getAccountDetail = (params?: {}) =>
   defHttp.get<{}>({ url: Api.AccountDetail, params }, { apiUrl: mockUrl });
+
+export const addPracelInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddPracelInfo, params }, { apiUrl: mockUrl });
+
+export const updateParcelInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateParcelInfo, params }, { apiUrl: mockUrl });
+
+export const deleteParcelInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeleteParcelInfo, params }, { apiUrl: mockUrl });
+
+export const detailParcelInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.DetailParcelInfo, params }, { apiUrl: mockUrl });

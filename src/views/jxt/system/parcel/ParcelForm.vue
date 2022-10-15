@@ -1,98 +1,86 @@
 <template>
   <PageWrapper
-    title="新增/编辑教练员信息"
+    title="新增/编辑分部"
     contentBackground
-    content="新增/编辑教练员信息"
+    content="新增/编辑分部"
     contentClass="p-4"
     @back="goback"
   >
-    <a-card title="个人信息" :bordered="false">
+    <a-card title="基本信息" :bordered="false">
       <BasicForm @register="register" />
     </a-card>
-
-    <a-card title="其他信息" :bordered="false">
-      <BasicForm @register="registerFormTwo" />
-    </a-card>
-
-    <template #rightFooter>
-      <a-button type="primary" @click="customSubmitFunc"> 提交 </a-button>
-    </template>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
   import { defineComponent, ref } from 'vue';
-  import { schemas, anotherSchema } from './coach.data';
+  import { formSchema } from './role.data';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
+  import { addPracelInfo, detailParcelInfo, updateParcelInfo } from '/@/api/jxt/system';
   import { useGo } from '/@/hooks/web/usePage';
-  import { addCoachInfo, updateCoachInfo, detailCoachInfo } from '/@/api/jxt/coach';
   import { useRoute } from 'vue-router';
 
   import { Card } from 'ant-design-vue';
 
   export default defineComponent({
-    name: 'FormBasicPage',
+    name: 'ServiceFormManagement',
     components: { BasicForm, PageWrapper, [Card.name]: Card },
     setup() {
       const { createMessage } = useMessage();
       const go = useGo();
       const route = useRoute();
       const id = ref(route.params?.id);
-      const [register, { validate, setFieldsValue }] = useForm({
+      const [register, { validate, setProps, setFieldsValue }] = useForm({
         labelCol: {
           span: 8,
         },
         wrapperCol: {
           span: 15,
         },
-        schemas: schemas,
+        schemas: formSchema,
         actionColOptions: {
           offset: 8,
           span: 23,
         },
-        showActionButtonGroup: false,
+        submitButtonOptions: {
+          text: '提交',
+        },
+        submitFunc: customSubmitFunc,
       });
-
-      const [registerFormTwo, { validate: validateTwo, setFieldsValue: setFieldsValueTwo }] =
-        useForm({
-          labelCol: {
-            span: 8,
-          },
-          wrapperCol: {
-            span: 15,
-          },
-          schemas: anotherSchema,
-          showActionButtonGroup: false,
-        });
 
       async function customSubmitFunc() {
         try {
           const values = await validate();
-          const valuesTwo = await validateTwo();
+          setProps({
+            submitButtonOptions: {
+              loading: true,
+            },
+          });
           if (id.value && id.value !== 'undefined') {
             Object.assign(values, { id: id.value as string });
-            Object.assign(values, valuesTwo);
-            await updateCoachInfo(values);
+            await updateParcelInfo(values);
           } else {
-            await addCoachInfo(values);
+            await addPracelInfo(values);
           }
+          setProps({
+            submitButtonOptions: {
+              loading: false,
+            },
+          });
           createMessage.success('提交成功!');
-          go('/coach/coach');
+          go('/system/parcel');
         } catch (error) {}
       }
 
       function goback() {
-        go('/coach/coach');
+        go('/system/parcel');
       }
 
       async function getDetail(id) {
         if (id.value && id.value !== 'undefined') {
-          const details = await detailCoachInfo({ id: id.value as string });
+          const details = await detailParcelInfo({ id: id.value as string });
           setFieldsValue({
-            ...details,
-          });
-          setFieldsValueTwo({
             ...details,
           });
         }
@@ -100,7 +88,7 @@
 
       getDetail(id);
 
-      return { register, registerFormTwo, goback, customSubmitFunc };
+      return { register, goback };
     },
   });
 </script>

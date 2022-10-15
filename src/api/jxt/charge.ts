@@ -8,11 +8,17 @@ enum Api {
   ChargePageList = '/charge/list',
   SourcePageList = '/source/list',
   CoursePageList = '/course/list',
+  ServicePageList = '/service/list',
 
   AddChargeInfo = '/charge/add',
   UpdateChargeInfo = '/charge/update',
   DeleteChargeInfo = '/charge/delete',
   DetailCharge = '/charge/detail',
+
+  AddServiceInfo = '/service/add',
+  UpdateServiceInfo = '/service/update',
+  DeleteServiceInfo = '/service/delete',
+  DetailServiceInfo = '/service/detail',
 }
 
 export const getChargeListByPage = (params?: RolePageParams) =>
@@ -23,6 +29,12 @@ export const getSourceListByPage = (params?: RolePageParams) =>
 
 export const getCourseListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.CoursePageList, params }, { apiUrl: mockUrl });
+
+export const getServicePageList = (params?: RolePageParams) =>
+  defHttp.get<RolePageListGetResultModel>(
+    { url: Api.ServicePageList, params },
+    { apiUrl: mockUrl },
+  );
 
 export const addChargeInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.AddChargeInfo, params }, { apiUrl: mockUrl });
@@ -35,3 +47,15 @@ export const deleteChargeInfo = (params?: {}) =>
 
 export const detailCHarge = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailCharge, params }, { apiUrl: mockUrl });
+
+export const addServiceInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddServiceInfo, params }, { apiUrl: mockUrl });
+
+export const updateServiceInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateServiceInfo, params }, { apiUrl: mockUrl });
+
+export const deleteServiceInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeleteServiceInfo, params }, { apiUrl: mockUrl });
+
+export const detailServiceInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.DetailServiceInfo, params }, { apiUrl: mockUrl });

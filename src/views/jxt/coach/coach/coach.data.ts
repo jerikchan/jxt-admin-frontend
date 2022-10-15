@@ -1,6 +1,13 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
+import {
+  getCoachServiceTypeList,
+  getCountryProLevelList,
+  getServiceModeList,
+  getWorkStautsList,
+} from '/@/api/jxt/dic';
+
 const colProps = {
   span: 8,
 };
@@ -141,17 +148,23 @@ export const schemas: FormSchema[] = [
   },
   {
     field: 'sex',
-    component: 'Input',
     label: '性别',
-    colProps,
     required: false,
-  },
-  {
-    field: 'sex',
-    component: 'Input',
-    label: '性别',
+    component: 'RadioGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        {
+          label: '男',
+          value: 0,
+        },
+        {
+          label: '女',
+          value: 1,
+        },
+      ],
+    },
     colProps,
-    required: false,
   },
   {
     field: 'wechat',
@@ -168,11 +181,24 @@ export const schemas: FormSchema[] = [
     required: false,
   },
   {
-    field: 'coachName',
-    component: 'Input',
-    label: '吸烟',
-    colProps,
+    field: 'smokeOrNot',
+    label: '是否吸烟',
     required: false,
+    component: 'RadioGroup',
+    defaultValue: '否',
+    componentProps: {
+      options: [
+        {
+          label: '否',
+          value: '否',
+        },
+        {
+          label: '是',
+          value: '是',
+        },
+      ],
+    },
+    colProps,
   },
   {
     field: 'hobby',
@@ -208,6 +234,127 @@ export const schemas: FormSchema[] = [
     required: false,
   },
 ];
+
+export const anotherSchema: FormSchema[] = [
+  {
+    field: '所属分部',
+    component: 'ApiSelect',
+    label: '所属分部',
+    colProps,
+    componentProps: {},
+    required: true,
+  },
+  {
+    field: '所属机构',
+    component: 'ApiSelect',
+    label: '所属机构',
+    colProps,
+    componentProps: {},
+    required: true,
+  },
+  {
+    field: 'jiaolianzhenghao',
+    component: 'Input',
+    label: '教练证号',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'jiaolianzhenghao',
+    component: 'Input',
+    label: '驾驶证号',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'jiaolianzhenghao',
+    component: 'DatePicker',
+    label: '教练证有效期',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'guojiazhiyedengji',
+    label: '国家职业等级',
+    colProps,
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCountryProLevelList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+  },
+  {
+    field: 'shanggangshijian',
+    component: 'DatePicker',
+    label: '上岗时间',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'jiaolianleixing',
+    label: '教练类型',
+    colProps,
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getServiceModeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+  },
+  {
+    field: 'jiaolianleixing',
+    label: '在岗状态',
+    colProps,
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getWorkStautsList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+  },
+  {
+    field: 'yewuleixing',
+    label: '业务类型',
+    colProps,
+    required: false,
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCoachServiceTypeList,
+      labelField: 'label',
+      valueField: 'value',
+      disabled: false,
+    },
+  },
+  {
+    field: 'jiaoxuenianling',
+    component: 'Input',
+    label: '教学年龄',
+    colProps,
+    required: false,
+  },
+  {
+    field: 'jiaoxuenianling',
+    component: 'Input',
+    label: '所属训练场',
+    colProps,
+    required: false,
+  },
+  {
+    field: '教学经验',
+    component: 'InputTextArea',
+    label: '教学经验',
+    colProps,
+    required: false,
+  },
+];
+
 export const otherSchema: FormSchema[] = [
   {
     field: 't1',

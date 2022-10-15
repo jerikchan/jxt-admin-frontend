@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handlerOper"> 新增分部 </a-button>
+        <a-button type="primary" @click="handlerOper"> 新增收费记录 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -26,32 +26,32 @@
         </template>
       </template>
     </BasicTable>
-    <RoleDrawer @register="registerDrawer" @success="handleSuccess" />
+    <!-- <RoleDrawer @register="registerDrawer" @success="handleSuccess" /> -->
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { deleteParcelInfo, getParceltListByPage } from '/@/api/jxt/system';
+  import { getServicePageList, deleteServiceInfo } from '/@/api/jxt/charge';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
+
+  import { columns, searchFormSchema } from './service.project.data';
+
   import { useGo } from '/@/hooks/web/usePage';
   import { useMessage } from '/@/hooks/web/useMessage';
 
-  import { columns, searchFormSchema } from './role.data';
-
   export default defineComponent({
-    name: 'DeptManagement',
-    components: { BasicTable, RoleDrawer, TableAction },
+    name: 'ServiceProjectManagement',
+    components: { BasicTable, TableAction },
     setup() {
       const [registerDrawer] = useDrawer();
-      const go = useGo();
       const { createMessage } = useMessage();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
-        title: '机构列表',
-        api: getParceltListByPage,
+        title: '业务项目列表',
+        api: getServicePageList,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -66,24 +66,21 @@
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
-          fixed: undefined,
+          fixed: 'right',
         },
       });
 
       function handlerOper(record: Recordable) {
-        go('/system/parcel_oper/' + record.id);
+        go('/charge/service_oper/' + record.id);
       }
 
       async function handleDelete(record: Recordable) {
         console.log(record);
         try {
-          await deleteParcelInfo({ id: record.id });
-          createMessage.success('删除成功!');
-        } catch (error) {
-          console.error(error);
-          createMessage.error('删除失败!');
-        }
-        reload();
+          await deleteServiceInfo({ id: record.id });
+          createMessage.success('删除成功！');
+          reload();
+        } catch (error) {}
       }
 
       function handleSuccess() {

@@ -35,17 +35,28 @@ const LIST: AppRouteModule = {
       },
       component: () => import('/@/views/jxt/charge/charge/ChargeForm.vue'),
     },
-    // {
-    //   path: 'business-project', // The midline path complies with SEO specifications
-    //   name: 'BusinessProject',
-    //   component: () => import('@/views/list/search-table/index.vue'),
-    //   meta: {
-    //     // locale: 'menu.list.searchTable',
-    //     label: '业务项目',
-    //     requiresAuth: true,
-    //     roles: ['*'],
-    //   },
-    // },
+    {
+      path: 'service', // The midline path complies with SEO specifications
+      name: 'ServiceList',
+      component: () => import('/@/views/jxt/charge/service/index.vue'),
+      meta: {
+        title: '业务项目',
+        requiresAuth: true,
+      },
+    },
+    {
+      path: 'service_oper/:id',
+      name: 'ServiceOper',
+      meta: {
+        title: '新增/编辑业务记录',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/charge/service',
+      },
+      component: () => import('/@/views/jxt/charge/service/ServiceForm.vue'),
+    },
   ],
 };
 

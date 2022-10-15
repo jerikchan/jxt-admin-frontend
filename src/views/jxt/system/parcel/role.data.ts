@@ -1,124 +1,125 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
+
+import { getReciveOrNotTypeList } from '/@/api/jxt/dic';
+
+const colProps = {
+  span: 8,
+};
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
+    title: '分部名称',
+    dataIndex: 'name',
     width: 200,
   },
   {
-    title: '角色值',
-    dataIndex: 'roleValue',
+    title: '分部地址',
+    dataIndex: 'address',
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '是否接送',
+    dataIndex: 'receiveOrNot',
+    width: 180,
+  },
+  {
+    title: '分部电话',
+    dataIndex: 'phone',
+    width: 180,
+  },
+  {
+    title: '设立时间',
+    dataIndex: 'useTime',
+    width: 180,
   },
   {
     title: '状态',
     dataIndex: 'status',
-    width: 120,
-    customRender: ({ record }) => {
-      if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
-      }
-      return h(Switch, {
-        checked: record.status === '1',
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
-        loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
-          const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
-            .then(() => {
-              record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
-            })
-            .catch(() => {
-              createMessage.error('修改角色状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
-        },
-      });
-    },
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
     width: 180,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
-    label: '角色名称',
+    field: 'name',
+    label: '分部名称',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
+    field: 'phone',
+    label: '联系电话',
+    component: 'Input',
     colProps: { span: 8 },
   },
 ];
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
-    required: true,
+    field: 'name',
+    label: '分部名称',
     component: 'Input',
+    colProps: { span: 8 },
   },
   {
-    field: 'roleValue',
-    label: '角色值',
-    required: true,
+    field: 'phone',
+    label: '联系电话',
     component: 'Input',
+    colProps: { span: 8 },
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
+    field: 'address',
+    label: '分部地址',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'receiveOrNot',
+    label: '是否接送',
+    required: false,
+    component: 'ApiSelect',
     componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
+      api: getReciveOrNotTypeList,
+      labelField: 'label',
+      valueField: 'value',
     },
+    colProps,
   },
   {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
+    field: 'useTime',
+    label: '设立时间',
+    component: 'DatePicker',
+    colProps: { span: 8 },
   },
   {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
+    field: 'accountName',
+    label: '转账姓名',
     component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'yinhangzhuanhang',
+    label: '银行账号',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'yinhang',
+    label: '银行',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'zhihang',
+    label: '支行',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'zhihang',
+    label: '支行',
+    component: 'InputTextArea',
+    colProps: { span: 8 },
   },
 ];
