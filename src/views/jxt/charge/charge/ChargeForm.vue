@@ -84,7 +84,13 @@
         try {
           const data = chargeTable.value.getDataSource();
           const list = data.map((item) => {
-            return item.editValueRefs;
+            return Object.keys(item.editValueRefs).reduce(
+              (acc, key) => {
+                acc[key] = item[key];
+                return acc;
+              },
+              { id: item.id },
+            );
           });
           debugger;
           await addChargeInfoList({ list, studentId: unref(id) });

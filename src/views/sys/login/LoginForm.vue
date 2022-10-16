@@ -24,7 +24,7 @@
         :placeholder="t('sys.login.password')"
       />
     </FormItem>
-    <FormItem name="verifyCode" class="enter-x">
+    <FormItem name="verifyCode" class="enter-x select-none">
       <BasicDragVerify ref="verifyCode" @success="handleSuccess" />
     </FormItem>
     <FormItem class="enter-x">

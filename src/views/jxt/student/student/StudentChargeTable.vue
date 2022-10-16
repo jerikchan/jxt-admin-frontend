@@ -34,7 +34,7 @@
         api: getChargeTypeList,
         resultField: 'list',
         labelField: 'label',
-        valueField: 'id',
+        valueField: 'label',
       },
     },
     {
@@ -52,29 +52,29 @@
       dataIndex: 'discountAmount',
       editRow: true,
     },
-    {
-      title: '代收代支款',
-      dataIndex: 'dept',
-      editRow: true,
-    },
-    {
-      title: '预收款',
-      dataIndex: 'dept',
-      editRow: true,
-    },
+    // {
+    //   title: '代收代支款',
+    //   dataIndex: 'dept',
+    //   editRow: true,
+    // },
+    // {
+    //   title: '预收款',
+    //   dataIndex: 'dept',
+    //   editRow: true,
+    // },
     {
       title: '实收款',
-      dataIndex: 'dept',
+      dataIndex: 'realAmount',
       editRow: true,
     },
     {
       title: '收款编码',
-      dataIndex: 'dept',
+      dataIndex: 'chargeCode',
       editRow: true,
     },
     {
       title: '收费方式',
-      dataIndex: 'dept',
+      dataIndex: 'paymentMethod',
       editRow: true,
       editComponent: 'ApiSelect',
       editComponentProps: {
@@ -84,54 +84,54 @@
         valueField: 'value',
       },
     },
-    {
-      title: '收费状态',
-      dataIndex: 'dept',
-      editRow: true,
-    },
+    // {
+    //   title: '收费状态',
+    //   dataIndex: 'dept',
+    //   editRow: true,
+    // },
     {
       title: '收费日期',
-      dataIndex: 'dept',
+      dataIndex: 'chargeDate',
       editRow: true,
     },
-    {
-      title: '录入日期',
-      dataIndex: 'dept',
-      editRow: false,
-    },
-    {
-      title: '录入人',
-      dataIndex: 'dept',
-      editRow: false,
-    },
+    // {
+    //   title: '录入日期',
+    //   dataIndex: 'dept',
+    //   editRow: false,
+    // },
+    // {
+    //   title: '录入人',
+    //   dataIndex: 'dept',
+    //   editRow: false,
+    // },
     {
       title: '收费人',
-      dataIndex: 'dept',
+      dataIndex: 'chargeManId',
       editRow: true,
     },
     {
       title: '审核状态',
-      dataIndex: 'dept',
+      dataIndex: 'status',
       editRow: false,
     },
-    {
-      title: '审核时间',
-      dataIndex: 'dept',
-      editRow: false,
-    },
-    {
-      title: '审核人',
-      dataIndex: 'dept',
-      editRow: false,
-    },
+    // {
+    //   title: '审核时间',
+    //   dataIndex: 'dept',
+    //   editRow: false,
+    // },
+    // {
+    //   title: '审核人',
+    //   dataIndex: 'dept',
+    //   editRow: false,
+    // },
     {
       title: '发票号',
-      dataIndex: 'dept',
+      dataIndex: 'invoiceNumber',
       editRow: true,
     },
     {
       title: '发票金额',
-      dataIndex: 'dept',
+      dataIndex: 'invoiceAmount',
       editRow: false,
     },
   ];
@@ -201,10 +201,14 @@
               label: '编辑',
               onClick: handleEdit.bind(null, record),
             },
-            {
-              label: '删除',
-              onClick: handleDelete.bind(null, record),
-            },
+            ...(!record.id
+              ? [
+                  {
+                    label: '删除',
+                    onClick: handleDelete.bind(null, record),
+                  },
+                ]
+              : []),
           ];
         }
         return [
