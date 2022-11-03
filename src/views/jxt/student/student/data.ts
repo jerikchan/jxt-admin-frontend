@@ -37,12 +37,12 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '所属分部',
-    dataIndex: 'orderNo',
+    dataIndex: 'parcelName',
     width: 150,
   },
   {
     title: '报名日期',
-    dataIndex: 'orderNo',
+    dataIndex: 'registeredDate',
     width: 150,
   },
   {
@@ -74,62 +74,62 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '第一证件号',
-    dataIndex: 'orderNo',
+    dataIndex: 'idNumber',
     width: 150,
   },
   {
     title: '证件地址',
-    dataIndex: 'orderNo',
+    dataIndex: 'papersAddress',
     width: 150,
   },
   {
     title: '车型',
-    dataIndex: 'orderNo',
+    dataIndex: 'vehicleType',
     width: 150,
   },
   {
     title: '进度',
-    dataIndex: 'orderNo',
+    dataIndex: 'examProcess',
     width: 150,
   },
   {
     title: '课程',
-    dataIndex: 'orderNo',
+    dataIndex: 'courseName',
     width: 150,
   },
   {
     title: '学员编号',
-    dataIndex: 'orderNo',
+    dataIndex: 'studentCode',
     width: 150,
   },
   {
     title: '教练',
-    dataIndex: 'orderNo',
+    dataIndex: 'coachName',
     width: 150,
   },
   {
     title: '未收费用',
-    dataIndex: 'orderNo',
+    dataIndex: 'noCharge',
     width: 150,
   },
   {
     title: '是否潜在客户转正',
-    dataIndex: 'orderNo',
+    dataIndex: 'simpleToFormal',
     width: 150,
   },
   {
     title: '所属训练场',
-    dataIndex: 'orderNo',
+    dataIndex: 'areaName',
     width: 150,
   },
   {
     title: '受理号',
-    dataIndex: 'orderNo',
+    dataIndex: 'acceptanceNo',
     width: 150,
   },
   {
     title: '受理时间',
-    dataIndex: 'orderNo',
+    dataIndex: 'acceptedDate',
     width: 150,
   },
   {
@@ -215,7 +215,7 @@ export const formSchema: FormSchema[] = [
     suffix: '.com',
   },
   {
-    field: 'jiguan',
+    field: 'nativePlace',
     label: '籍贯',
     required: true,
     component: 'RadioGroup',
@@ -224,18 +224,18 @@ export const formSchema: FormSchema[] = [
       options: [
         {
           label: '本地',
-          value: 0,
+          value: '本地',
         },
         {
           label: '外地',
-          value: 1,
+          value: '外地',
         },
       ],
     },
     colProps,
   },
   {
-    field: 'shili',
+    field: 'vision',
     label: '视力',
     required: false,
     component: 'RadioGroup',
@@ -244,11 +244,11 @@ export const formSchema: FormSchema[] = [
       options: [
         {
           label: '良好',
-          value: 0,
+          value: '良好',
         },
         {
           label: '近视',
-          value: 1,
+          value: '近视',
         },
       ],
     },
@@ -262,21 +262,21 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'yzbh',
+    field: 'postCode',
     label: '邮政编号',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'youjidizhi',
+    field: 'mailingAddress',
     label: '邮寄地址',
     required: true,
     component: 'Input',
     colProps,
   },
   {
-    field: 'zhengjianguoqiriqi',
+    field: 'expirationOfPapers',
     label: '证件过期日期',
     required: false,
     component: 'DatePicker',
@@ -290,7 +290,7 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'zhunkaozhenghao',
+    field: 'admissionCode',
     label: '准考证号',
     required: false,
     component: 'Input',
@@ -310,14 +310,14 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'zhengjianbianhao',
+    field: 'idNumber',
     label: '证件编号',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'zhengjiandizhi',
+    field: 'papersAddress',
     label: '证件地址',
     required: false,
     component: 'Input',
@@ -337,28 +337,28 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
-    field: 'dierzhengjianhaoma',
+    field: 'secondeIdNumber',
     label: '第二证件号码',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'dierzhengjiandizhi',
+    field: 'secondPapersAddress',
     label: '第二证件地址',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'expirationOfSecondPapers',
     label: '第二证件过期日期',
     required: false,
     component: 'DatePicker',
     colProps,
   },
   {
-    field: 'shengao',
+    field: 'height',
     label: '身高',
     required: false,
     component: 'Input',
@@ -366,7 +366,7 @@ export const formSchema: FormSchema[] = [
     suffix: 'cm',
   },
   {
-    field: 'shifouqitajiaxiaobaoguoming',
+    field: 'otherJx',
     label: '是否其他驾校报过名',
     required: false,
     component: 'RadioGroup',
@@ -375,11 +375,11 @@ export const formSchema: FormSchema[] = [
       options: [
         {
           label: '否',
-          value: 1,
+          value: '否',
         },
         {
           label: '是',
-          value: 0,
+          value: '是',
         },
       ],
     },
@@ -412,7 +412,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'applicationMode',
     label: '报考模式',
     required: false,
     component: 'ApiSelect',
@@ -425,7 +425,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'apllicationType',
     label: '申请类型',
     required: false,
     component: 'ApiSelect',
@@ -438,7 +438,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'courseName',
     label: '课程',
     required: false,
     component: 'ApiSelect',
@@ -451,7 +451,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'vehicleType',
     label: '报考车型',
     required: false,
     component: 'ApiSelect',
@@ -464,7 +464,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'OriginalApprovedVehicleModel',
     label: '原准驾车型',
     required: false,
     component: 'ApiSelect',
@@ -477,7 +477,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'baokaomoshi',
+    field: 'coachName',
     label: '教练员',
     required: false,
     component: 'ApiSelect',
@@ -490,7 +490,7 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'registeredDate',
     label: '报名日期',
     required: false,
     component: 'DatePicker',
@@ -509,28 +509,35 @@ export const formSchemaTwo: FormSchema[] = [
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'acceptanceNo',
     label: '受理号',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'acceptedDate',
+    label: '受理时间',
+    required: false,
+    component: 'DatePicker',
+    colProps,
+  },
+  {
+    field: 'parcelName',
     label: '所属分部',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'areaName',
     label: '所属训练场',
     required: false,
     component: 'Input',
     colProps,
   },
   {
-    field: 'dierzhengjianguoqiriqi',
+    field: 'branchName',
     label: '所属机构',
     required: false,
     component: 'Input',
