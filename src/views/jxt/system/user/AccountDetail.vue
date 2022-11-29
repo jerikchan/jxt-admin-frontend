@@ -36,7 +36,7 @@
   import { useGo } from '/@/hooks/web/usePage';
   // import { useTabs } from '/@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
-  import { getAccountDetail } from '/@/api/admin/system';
+  // import { getAccountDetail } from '/@/api/admin/system';
   import { accountDetailSchema } from './account.data';
   import { Description } from '/@/components/Description/index';
 
@@ -58,7 +58,7 @@
       // setTitle('详情：用户' + userId.value);
 
       onMounted(async () => {
-        userInfo.value = await getAccountDetail({ id: userId.value });
+        // userInfo.value = await getAccountDetail({ id: userId.value });
       });
 
       // 页面左侧点击返回链接时的操作
