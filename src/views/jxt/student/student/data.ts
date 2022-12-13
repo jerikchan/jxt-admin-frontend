@@ -255,6 +255,28 @@ export const formSchema: FormSchema[] = [
     colProps,
   },
   {
+    field: 'idCardFront',
+    label: '身份证正面',
+    component: 'Input',
+    slot: 'file',
+    itemProps: {
+      autoLink: false,
+    },
+    required: true,
+    colProps,
+  },
+  {
+    field: 'idCardBack',
+    label: '身份证反面',
+    component: 'Input',
+    slot: 'file',
+    itemProps: {
+      autoLink: false,
+    },
+    required: true,
+    colProps,
+  },
+  {
     field: 'nationality',
     label: '国籍',
     required: false,
