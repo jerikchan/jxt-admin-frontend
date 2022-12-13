@@ -37,6 +37,7 @@
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
+      const id = ref(0);
       const treeData = ref<TreeItem[]>([]);
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
@@ -54,6 +55,8 @@
           treeData.value = (await getMenuList()) as any as TreeItem[];
         }
         isUpdate.value = !!data?.isUpdate;
+        debugger;
+        id.value = data.record.id;
 
         if (unref(isUpdate)) {
           setFieldsValue({
@@ -73,7 +76,11 @@
           if (!unref(isUpdate)) {
             addDept(values);
           } else {
-            updateDept(values);
+            debugger;
+            updateDept({
+              ...values,
+              id: unref(id),
+            });
           }
           closeDrawer();
           emit('success');
