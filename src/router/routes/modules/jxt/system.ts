@@ -23,6 +23,15 @@ const LIST: AppRouteModule = {
       },
     },
     {
+      path: 'dept', // The midline path complies with SEO specifications
+      name: 'DeptManagement',
+      component: () => import('/@/views/jxt/system/dept/index.vue'),
+      meta: {
+        title: '部门管理',
+        requiresAuth: true,
+      },
+    },
+    {
       path: 'role', // The midline path complies with SEO specifications
       name: 'RoleManagement',
       component: () => import('/@/views/jxt/system/role/index.vue'),

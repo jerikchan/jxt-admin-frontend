@@ -30,6 +30,7 @@
 
   import { getMenuList } from '/@/api/demo/system';
 
+  import { addDept, updateDept } from '/@/api/jxt/system';
   export default defineComponent({
     name: 'DeptDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
@@ -61,14 +62,19 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增部门' : '编辑部门'));
 
       async function handleSubmit() {
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
-          console.log(values);
+          // console.log(values);
+          if (!unref(isUpdate)) {
+            addDept(values);
+          } else {
+            updateDept(values);
+          }
           closeDrawer();
           emit('success');
         } finally {

@@ -25,7 +25,12 @@ enum Api {
   AccountDetail = '/user/detail',
 
   AreaPageList = '/area/list',
-  DeptPageList = '/dept/list',
+
+  DeptPageList = '/dept/tree',
+  DeptAdd = '/dept/add',
+  DeptDelete = '/dept/delete',
+  DeptUpdate = '/dept/update',
+
   ParcelPageList = '/parcel/list',
   AuthPageList = '/auth/list',
 
@@ -65,11 +70,20 @@ export const getAccountDetail = (params?: {}) =>
 export const addPracelInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.AddPracelInfo, params }, { apiUrl: mockUrl });
 
+export const addDept = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeptAdd, params }, { apiUrl: mockUrl });
+
 export const updateParcelInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.UpdateParcelInfo, params }, { apiUrl: mockUrl });
+
+export const updateDept = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeptUpdate, params }, { apiUrl: mockUrl });
 
 export const deleteParcelInfo = (params?: {}) =>
   defHttp.post<{}>({ url: Api.DeleteParcelInfo, params }, { apiUrl: mockUrl });
 
 export const detailParcelInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailParcelInfo, params }, { apiUrl: mockUrl });
+
+export const deleteDept = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeptDelete, params }, { apiUrl: mockUrl });

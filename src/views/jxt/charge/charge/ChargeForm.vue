@@ -92,7 +92,6 @@
               { id: item.id },
             );
           });
-          debugger;
           await addChargeInfoList({ list, studentId: unref(id) });
         } catch (error) {
           console.error(error);

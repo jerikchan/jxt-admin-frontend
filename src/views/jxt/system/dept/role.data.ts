@@ -4,22 +4,23 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { getAccountList, getDeptList } from '/@/api/jxt/system';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
+    title: '部门名称',
+    dataIndex: 'name',
     width: 200,
   },
   {
-    title: '角色值',
-    dataIndex: 'roleValue',
+    title: '负责人',
+    dataIndex: 'leader',
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '部门手机',
+    dataIndex: 'phone',
+    width: 180,
   },
   {
     title: '状态',
@@ -41,10 +42,10 @@ export const columns: BasicColumn[] = [
           setRoleStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
+              createMessage.success(`已成功修改部门状态`);
             })
             .catch(() => {
-              createMessage.error('修改角色状态失败');
+              createMessage.error('修改部门状态失败');
             })
             .finally(() => {
               record.pendingStatus = false;
@@ -67,7 +68,7 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'roleNme',
-    label: '角色名称',
+    label: '部门名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -87,38 +88,44 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'name',
+    label: '部门名称',
     required: true,
     component: 'Input',
   },
   {
-    field: 'roleValue',
-    label: '角色值',
-    required: true,
-    component: 'Input',
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
+    field: 'leaderId',
+    label: '负责人',
+    component: 'ApiSelect',
+    colProps: { span: 12 },
     componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
+      // more details see /src/components/Form/src/components/ApiSelect.vue
+      api: getAccountList,
+      showSearch: true,
+      resultField: 'items',
+      labelField: 'name',
+      valueField: 'id',
+      immediate: false,
     },
   },
   {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
+    field: 'parentId',
+    label: '上级部门',
+    component: 'ApiTreeSelect',
+    colProps: { span: 12 },
+    componentProps: {
+      api: getDeptList,
+      resultField: 'result',
+      fieldNames: {
+        label: 'name',
+        value: 'id',
+      },
+    },
   },
   {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
+    field: 'phone',
+    label: '部门手机',
+    required: false,
     component: 'Input',
   },
 ];

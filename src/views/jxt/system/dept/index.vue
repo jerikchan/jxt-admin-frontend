@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增分部 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -33,7 +33,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptListByPage } from '/@/api/jxt/system';
+  import { getDeptListByPage, deleteDept } from '/@/api/jxt/system';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
@@ -46,7 +46,7 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '分部列表',
+        title: '部门列表',
         api: getDeptListByPage,
         columns,
         formConfig: {
@@ -79,8 +79,10 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
-        console.log(record);
+      async function handleDelete(record: Recordable) {
+        // console.log(record);
+        await deleteDept({ id: record.id });
+        reload();
       }
 
       function handleSuccess() {
