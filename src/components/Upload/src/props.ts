@@ -60,6 +60,14 @@ export const uploadContainerProps = {
   },
 };
 
+export const imgProps = {
+  ...basicProps,
+  url: {
+    type: String as PropType<string>,
+    default: '',
+  },
+};
+
 export const previewProps = {
   value: {
     type: Array as PropType<string[]>,

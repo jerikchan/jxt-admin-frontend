@@ -7,22 +7,7 @@
     @back="goback"
   >
     <a-card title="个人信息" :bordered="false">
-      <BasicForm @register="register">
-        <template #[fileInfo.key] v-for="fileInfo in fileInfos" :key="fileInfo.key">
-          <a-upload
-            listType="picture-card"
-            v-model:fileList="fileInfo.data"
-            :customRequest="uploadIdCardFront"
-            class="avatar-uploader"
-            @change="onFileChange(fileInfo, $event)"
-          >
-            <div v-if="fileInfo.data.length < 4">
-              <PlusOutlined />
-              <div class="ant-upload-text">上传</div>
-            </div>
-          </a-upload>
-        </template>
-      </BasicForm>
+      <BasicForm @register="register" @field-value-change="onFieldValueChange" />
     </a-card>
 
     <a-card title="学籍招生信息" :bordered="false">
@@ -40,14 +25,13 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref, reactive } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { formSchema, formSchemaTwo } from './data';
   import StudentChargeTable from './StudentChargeTable.vue';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
   import { addStudentInfo, updateStudentInfo, detailStudentInfo } from '/@/api/jxt/student';
   import { uploadIdCardFront } from '/@/api/jxt/file';
-  import { PlusOutlined } from '@ant-design/icons-vue';
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
   import { Upload } from 'ant-design-vue';
@@ -61,7 +45,6 @@
       StudentChargeTable,
       PageWrapper,
       [Card.name]: Card,
-      PlusOutlined,
       [Upload.name]: Upload,
     },
     setup() {
@@ -70,7 +53,7 @@
       const route = useRoute();
       const id = ref(route.params?.id);
       const tableRef = ref<{ getDataSource: () => any } | null>(null);
-      const [register, { validate, setFieldsValue }] = useForm({
+      const [register, { validate, setFieldsValue, getFieldsValue }] = useForm({
         labelCol: {
           span: 8,
         },
@@ -80,15 +63,6 @@
         schemas: formSchema,
         showActionButtonGroup: false,
       });
-
-      const fileInfos = reactive<any>(
-        ['file'].map((key) => {
-          return {
-            key,
-            data: [],
-          };
-        }),
-      );
 
       const [registerFormTwo, { validate: validateTwo, setFieldsValue: setFieldsValueTwo }] =
         useForm({
@@ -144,6 +118,47 @@
 
       getDetail(id);
 
+      function onFieldValueChange(key, value) {
+        if (['idCardFront'].includes(key)) {
+          resetCardFields(key, value);
+        }
+      }
+
+      function setFieldIfEmpty(fields, oldFields, key, value) {
+        if (!oldFields[key]) {
+          fields[key] = value;
+        }
+      }
+
+      function resetCardFields(key, value) {
+        value = value[0];
+        const fields = {};
+        fields[key] = value.uid;
+        const oldFields = getFieldsValue();
+        const { cardInfo } = value.responseData.result;
+        // 身份证信息自动填写
+        if (cardInfo) {
+          for ([key, value] of Object.entries(cardInfo)) {
+            if (key === '姓名') {
+              setFieldIfEmpty(fields, oldFields, 'name', value);
+            }
+            if (key === '性别') {
+              setFieldIfEmpty(fields, oldFields, 'sex', value === '男' ? 0 : 1);
+            }
+            if (key === '住址') {
+              setFieldIfEmpty(fields, oldFields, 'papersAddress', value);
+            }
+            if (key === '公民身份号码') {
+              setFieldIfEmpty(fields, oldFields, 'idNumber', value);
+            }
+            if (key === '出生') {
+              setFieldIfEmpty(fields, oldFields, 'birthday', value);
+            }
+          }
+        }
+        setFieldsValue(fields);
+      }
+
       return {
         register,
         registerFormTwo,
@@ -152,7 +167,7 @@
         tableRef,
         onFileChange,
         uploadIdCardFront,
-        fileInfos,
+        onFieldValueChange,
       };
     },
   });

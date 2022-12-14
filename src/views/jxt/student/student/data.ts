@@ -14,6 +14,7 @@ import {
   getShenqingList,
   getExamCarTypeList,
 } from '/@/api/jxt/dic';
+import { uploadApi } from '/@/api/sys/upload';
 
 const colProps = {
   span: 8,
@@ -191,7 +192,6 @@ export const formSchema: FormSchema[] = [
     label: '性别',
     required: false,
     component: 'RadioGroup',
-    defaultValue: 0,
     componentProps: {
       options: [
         {
@@ -257,8 +257,12 @@ export const formSchema: FormSchema[] = [
   {
     field: 'idCardFront',
     label: '身份证正面',
-    component: 'Input',
-    slot: 'file',
+    component: 'ImgUpload',
+    componentProps: {
+      api: uploadApi,
+      url: '/file/id/card/front/upload',
+      name: 'idCardFront',
+    },
     itemProps: {
       autoLink: false,
     },
@@ -268,8 +272,12 @@ export const formSchema: FormSchema[] = [
   {
     field: 'idCardBack',
     label: '身份证反面',
-    component: 'Input',
-    slot: 'file',
+    component: 'ImgUpload',
+    componentProps: {
+      api: uploadApi,
+      url: '/file/id/card/back/upload',
+      name: 'idCardBack',
+    },
     itemProps: {
       autoLink: false,
     },

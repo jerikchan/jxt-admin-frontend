@@ -49,5 +49,7 @@ export interface UploadFileParams {
   file: File | Blob;
   // file name
   filename?: string;
+  // custom upload url
+  url?: string;
   [key: string]: any;
 }

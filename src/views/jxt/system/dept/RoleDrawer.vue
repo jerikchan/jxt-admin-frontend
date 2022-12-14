@@ -55,7 +55,6 @@
           treeData.value = (await getMenuList()) as any as TreeItem[];
         }
         isUpdate.value = !!data?.isUpdate;
-        debugger;
         id.value = data.record.id;
 
         if (unref(isUpdate)) {
@@ -76,7 +75,6 @@
           if (!unref(isUpdate)) {
             addDept(values);
           } else {
-            debugger;
             updateDept({
               ...values,
               id: unref(id),

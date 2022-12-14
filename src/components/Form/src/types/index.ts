@@ -109,6 +109,7 @@ export type ComponentType =
   | 'Switch'
   | 'StrengthMeter'
   | 'Upload'
+  | 'ImgUpload'
   | 'IconPicker'
   | 'Render'
   | 'Slider'
