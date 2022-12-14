@@ -16,3 +16,8 @@ Object.keys(modules).forEach((key) => {
 export function setupProdMockServer() {
   createProdMockServer(mockModules);
 }
+
+// fix mock prod upload err
+if (window._XMLHttpRequest) {
+  Mock.XHR.prototype.upload = new window._XMLHttpRequest().upload;
+}
