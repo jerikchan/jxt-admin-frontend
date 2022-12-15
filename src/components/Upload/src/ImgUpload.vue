@@ -8,6 +8,8 @@
     :maxCount="1"
     :fileList="fileListRef"
     :customRequest="handleStartUpload"
+    :showUploadList="{ showPreviewIcon: false }"
+    @remove="onRemove"
   >
     <div v-if="fileListRef.length < 1">
       <PlusOutlined />
@@ -145,6 +147,10 @@
         }
       }
 
+      function onRemove() {
+        fileListRef.value = [];
+      }
+
       const bindValue = computed(() => {
         const value = { ...attrs, ...props };
         return omit(value, ['accept', 'onChange']);
@@ -153,6 +159,7 @@
       return {
         beforeUpload,
         handleStartUpload,
+        onRemove,
         bindValue,
         getStringAccept,
         fileListRef,

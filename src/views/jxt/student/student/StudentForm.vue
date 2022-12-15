@@ -119,7 +119,7 @@
       getDetail(id);
 
       function onFieldValueChange(key, value) {
-        if (['idCardFront'].includes(key)) {
+        if (['idCardFront', 'idCardBack'].includes(key)) {
           resetCardFields(key, value);
         }
       }
@@ -133,10 +133,13 @@
       function resetCardFields(key, value) {
         value = value[0];
         const fields = {};
+
+        // 存储 uid
         fields[key] = value.uid;
+
+        // 身份证信息自动填写
         const oldFields = getFieldsValue();
         const { cardInfo } = value.responseData.result;
-        // 身份证信息自动填写
         if (cardInfo) {
           for ([key, value] of Object.entries(cardInfo)) {
             if (key === '姓名') {
