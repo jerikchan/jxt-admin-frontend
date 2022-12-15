@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  push-to-gh-pages:
+  push-to-production:
     if: "contains(github.event.head_commit.message, '[release]')"
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: use Node.js 16
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: '16.13.0'
+          node-version: '16.x'
 
       - name: Get yarn cache
         id: yarn-cache
@@ -36,21 +36,14 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
       - name: Build
         run: |
+          export NODE_OPTIONS="--max_old_space_size=4096"
           yarn install
           yarn run build
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
-      # - name: rsync deployments
-      #   uses: burnett01/rsync-deployments@5.1
-      #   with:
-      #     switches: -avzr --delete
-      #     path: ./dist/
-      #     remote_path: /usr/share/banquet-admin
-      #     remote_host: ${{ secrets.REMOTE_HOST }}
-      #     remote_user: root
-      #     remote_key: ${{ secrets.REMOTE_KEY }}
 
       - name: rsync productions
         uses: burnett01/rsync-deployments@5.1
