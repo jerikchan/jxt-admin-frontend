@@ -11,6 +11,9 @@ enum Api {
   UpdateExamInfo = '/exam/update',
   DeleteExamInfo = '/exam/delete',
   DetailExamInfo = '/exam/detail',
+
+  ExamFastImport = '/import/exam/record',
+  ExamExcelExport = '/export/excel/exam/records',
 }
 
 export const getExamListByPage = (params?: RolePageParams) =>
@@ -27,3 +30,9 @@ export const deleteExamInfo = (params?: {}) =>
 
 export const detailExamInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.DetailExamInfo, params }, { apiUrl: mockUrl });
+
+export const fastImportExam = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.ExamFastImport, params }, { apiUrl: mockUrl });
+
+export const excelExportExam = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.ExamExcelExport, params }, { apiUrl: mockUrl });

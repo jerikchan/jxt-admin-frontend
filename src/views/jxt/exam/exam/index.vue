@@ -2,6 +2,8 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
+        <a-button type="primary" @click="handleExcelExport"> 导出excel </a-button>
+        <a-button type="primary" @click="handleFastImport"> 便捷录入 </a-button>
         <a-button type="primary" @click="handlerOper"> 新增考试记录 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
@@ -31,22 +33,26 @@
         </template>
       </template>
     </BasicTable>
+    <ExamFastImportModal @register="registerModal" @success="handleFastImportSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getExamListByPage, deleteExamInfo } from '/@/api/jxt/exam';
+  import { getExamListByPage, deleteExamInfo, excelExportExam } from '/@/api/jxt/exam';
 
   import { columns, searchFormSchema } from './exam.data';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { useModal } from '/@/components/Modal';
+  import ExamFastImportModal from './ExamFastImportModal.vue';
+
   export default defineComponent({
     name: 'ExamTableList',
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, ExamFastImportModal },
     setup() {
       const go = useGo();
       const { createMessage } = useMessage();
@@ -95,12 +101,30 @@
         reload();
       }
 
+      const [registerModal, { openModal }] = useModal();
+
+      function handleFastImport() {
+        openModal(true);
+      }
+
+      function handleExcelExport() {
+        excelExportExam();
+      }
+
+      function handleFastImportSuccess() {
+        reload();
+      }
+
       return {
         registerTable,
         handlerOper,
         handleView,
         handleDelete,
         handleSuccess,
+        handleFastImport,
+        handleExcelExport,
+        registerModal,
+        handleFastImportSuccess,
       };
     },
   });

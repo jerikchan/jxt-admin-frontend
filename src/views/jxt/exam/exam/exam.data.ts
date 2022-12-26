@@ -297,3 +297,15 @@ export const otherSchema: FormSchema[] = [
     },
   },
 ];
+
+export const fastImportSchema: FormSchema[] = [
+  {
+    field: 'data',
+    component: 'InputTextArea',
+    componentProps: {
+      autoSize: { minRows: 8 },
+    },
+    label: '',
+    required: true,
+  },
+];
