@@ -66,6 +66,10 @@ export const imgProps = {
     type: String as PropType<string>,
     default: '',
   },
+  listType: {
+    type: String as PropType<string>,
+    default: 'picture-card',
+  },
 };
 
 export const previewProps = {

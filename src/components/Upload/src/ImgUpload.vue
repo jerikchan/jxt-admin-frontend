@@ -1,7 +1,8 @@
 <template>
   <Upload
-    listType="picture-card"
+    :listType="listType"
     class="avatar-uploader"
+    :class="[prefixCls, typeCls]"
     :accept="getStringAccept"
     :beforeUpload="beforeUpload"
     :multiple="false"
@@ -11,16 +12,19 @@
     :showUploadList="{ showPreviewIcon: false }"
     @remove="onRemove"
   >
-    <div v-if="fileListRef.length < 1">
+    <div v-if="listType === 'picture-card' && fileListRef.length < 1">
       <PlusOutlined />
       <div class="ant-upload-text">上传</div>
+    </div>
+    <div v-if="listType === 'text'">
+      <Button type="primary">上传图片</Button>
     </div>
   </Upload>
 </template>
 
 <script lang="ts">
   import { PlusOutlined } from '@ant-design/icons-vue';
-  import { Upload } from 'ant-design-vue';
+  import { Upload, Button } from 'ant-design-vue';
   import { imgProps } from './props';
   import { computed, ref, toRefs, unref } from 'vue';
   import { omit } from 'lodash-es';
@@ -29,6 +33,7 @@
   // hooks
   import { useUploadType } from './useUpload';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { useDesign } from '/@/hooks/web/useDesign';
   // utils
   import { buildUUID } from '/@/utils/uuid';
   import { checkImgType, getBase64WithFile } from './helper';
@@ -39,10 +44,15 @@
     components: {
       PlusOutlined,
       Upload,
+      Button,
     },
     props: imgProps,
-    emits: ['change', 'update:value'],
+    emits: ['change', 'update:value', 'done', 'uploading'],
     setup(props, { emit, attrs }) {
+      const { prefixCls } = useDesign('img-upload');
+      const typeCls = computed(() => {
+        return props.listType ? `${prefixCls}-${props.listType}` : '';
+      });
       const { createMessage } = useMessage();
       const { accept, helpText, maxNumber, maxSize } = toRefs(props);
       const { getStringAccept } = useUploadType({
@@ -131,6 +141,10 @@
           const uploadFileList =
             fileListRef.value.filter((item) => item.status !== UploadResultStatus.SUCCESS) || [];
 
+          const originFileInfo = uploadFileList[0];
+
+          emit('uploading', originFileInfo.name);
+
           const data = await Promise.all(
             uploadFileList.map((item) => {
               return uploadApiByItem(item);
@@ -140,8 +154,11 @@
           const errorList = data.filter((item: any) => !item.success);
           if (errorList.length > 0) throw errorList;
 
+          const info = fileListRef.value[0]?.responseData?.result;
+
           emit('update:value', fileListRef.value);
           emit('change', fileListRef.value);
+          emit('done', originFileInfo.name, info?.thumbUrl);
         } catch (e) {
           throw e;
         }
@@ -163,7 +180,29 @@
         bindValue,
         getStringAccept,
         fileListRef,
+        prefixCls,
+        typeCls,
       };
     },
   };
 </script>
+
+<style lang="less" scoped>
+  @prefix-cls: ~'@{namespace}-img-upload';
+
+  .@{prefix-cls}-text {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    z-index: 20;
+
+    :deep(.ant-upload-list) {
+      display: none;
+    }
+
+    &.fullscreen {
+      position: fixed;
+      z-index: 10000;
+    }
+  }
+</style>

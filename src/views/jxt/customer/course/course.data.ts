@@ -6,6 +6,7 @@ import { Switch, Image } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { uploadApi } from '/@/api/sys/upload';
+import { Tinymce } from '/@/components/Tinymce/index';
 
 const colProps = {
   span: 18,
@@ -182,6 +183,21 @@ export const formSchema: FormSchema[] = [
     required: false,
     component: 'InputTextArea',
     colProps,
+  },
+  {
+    field: 'courseDetail',
+    component: 'Input',
+    label: '课程详情内容',
+    defaultValue: '',
+    rules: [{ required: true }],
+    render: ({ model, field }) => {
+      return h(Tinymce, {
+        value: model[field],
+        onChange: (value: string) => {
+          model[field] = value;
+        },
+      });
+    },
   },
   {
     field: 'notice',

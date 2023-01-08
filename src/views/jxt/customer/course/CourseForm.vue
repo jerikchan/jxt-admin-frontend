@@ -28,16 +28,13 @@
       const route = useRoute();
       const id = ref(route.params?.id);
       const [register, { validate, setProps, setFieldsValue }] = useForm({
-        labelCol: {
-          span: 8,
-        },
-        wrapperCol: {
-          span: 15,
+        labelWidth: 150,
+        baseColProps: {
+          span: 24,
         },
         schemas: formSchema,
         actionColOptions: {
-          offset: 8,
-          span: 23,
+          span: 24,
         },
         submitButtonOptions: {
           text: '提交',

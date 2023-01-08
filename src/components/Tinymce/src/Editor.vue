@@ -4,6 +4,10 @@
       :fullscreen="fullscreen"
       @uploading="handleImageUploading"
       @done="handleDone"
+      :api="uploadApi"
+      url="/file/id/card/front/upload"
+      name="idCardFront"
+      listType="text"
       v-if="showImageUpload"
       v-show="editorRef"
       :disabled="disabled"
@@ -46,7 +50,7 @@
   import 'tinymce/plugins/searchreplace';
   import 'tinymce/plugins/spellchecker';
   import 'tinymce/plugins/tabfocus';
-  // import 'tinymce/plugins/table';
+  import 'tinymce/plugins/table';
   import 'tinymce/plugins/template';
   import 'tinymce/plugins/textpattern';
   import 'tinymce/plugins/visualblocks';
@@ -63,7 +67,8 @@
     onDeactivated,
     onBeforeUnmount,
   } from 'vue';
-  import ImgUpload from './ImgUpload.vue';
+  // import ImgUpload from './ImgUpload.vue';
+  import ImgUpload from '/@/components/Upload/src/ImgUpload.vue';
   import { toolbar, plugins } from './tinymce';
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
@@ -72,6 +77,7 @@
   import { isNumber } from '/@/utils/is';
   import { useLocale } from '/@/locales/useLocale';
   import { useAppStore } from '/@/store/modules/app';
+  import { uploadApi } from '/@/api/sys/upload';
 
   const tinymceProps = {
     options: {
@@ -159,11 +165,12 @@
           default_link_target: '_blank',
           link_title: false,
           object_resizing: false,
-          auto_focus: true,
+          auto_focus: false,
           skin: skinName.value,
           skin_url: publicPath + 'resource/tinymce/skins/ui/' + skinName.value,
           content_css:
             publicPath + 'resource/tinymce/skins/ui/' + skinName.value + '/content.min.css',
+          fontsize_formats: '10px 12px 14px 16px 18px 24px 32px',
           ...options,
           setup: (editor: Editor) => {
             editorRef.value = editor;
@@ -306,6 +313,8 @@
         const content = editor?.getContent() ?? '';
         const val = content?.replace(getUploadingImgName(name), `<img src="${url}"/>`) ?? '';
         setValue(editor, val);
+        emit('update:modelValue', val);
+        emit('change', val);
       }
 
       function getUploadingImgName(name: string) {
@@ -324,6 +333,7 @@
         editorRef,
         fullscreen,
         disabled,
+        uploadApi,
       };
     },
   });
