@@ -205,6 +205,9 @@ export interface FormSchema {
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
+
+  // description use inner HTML
+  descInnerHTML?: boolean;
 }
 export interface HelpComponentProps {
   maxWidth: string;

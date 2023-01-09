@@ -109,7 +109,7 @@
         const { schema, data } = unref(getProps);
         return unref(schema)
           .map((item) => {
-            const { render, field, span, show, contentMinWidth } = item;
+            const { render, field, span, show, contentMinWidth, descInnerHTML } = item;
 
             if (show && isFunction(show) && !show(data)) {
               return null;
@@ -128,9 +128,16 @@
             };
 
             const width = contentMinWidth;
+            const content = getContent();
+            const htmlContent = descInnerHTML ? content : '';
             return (
               <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
                 {() => {
+                  if (htmlContent) {
+                    debugger;
+                    return <div v-html={htmlContent}></div>;
+                  }
+
                   if (!contentMinWidth) {
                     return getContent();
                   }

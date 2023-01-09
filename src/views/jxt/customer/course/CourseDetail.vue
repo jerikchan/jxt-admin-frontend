@@ -11,15 +11,15 @@
   import { detailCourse } from '/@/api/jxt/customer';
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
+  import { pick } from 'lodash-es';
 
   export default defineComponent({
     components: { Description, PageWrapper },
     setup() {
       const go = useGo();
-      const schema: DescItem[] = formSchema.map((item) => ({
-        field: item.field,
-        label: item.label,
-      }));
+      const schema: DescItem[] = formSchema.map((item) =>
+        pick(item, ['label', 'field', 'descInnerHTML']),
+      );
       const data: Recordable = ref({});
       const route = useRoute();
       const id = ref(route.params?.id);

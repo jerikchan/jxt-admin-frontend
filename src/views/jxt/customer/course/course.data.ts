@@ -177,19 +177,20 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
     colProps,
   },
-  {
-    field: 'courseDetail',
-    label: '课程详情内容',
-    required: false,
-    component: 'InputTextArea',
-    colProps,
-  },
+  // {
+  //   field: 'courseDetail',
+  //   label: '课程详情内容',
+  //   required: false,
+  //   component: 'InputTextArea',
+  //   colProps,
+  // },
   {
     field: 'courseDetail',
     component: 'Input',
     label: '课程详情内容',
     defaultValue: '',
     rules: [{ required: true }],
+    descInnerHTML: true,
     render: ({ model, field }) => {
       return h(Tinymce, {
         value: model[field],
