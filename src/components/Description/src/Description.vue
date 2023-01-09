@@ -134,7 +134,6 @@
               <Descriptions.Item label={renderLabel(item)} key={field} span={span}>
                 {() => {
                   if (htmlContent) {
-                    debugger;
                     return <div v-html={htmlContent}></div>;
                   }
 

@@ -9,7 +9,7 @@
     :maxCount="1"
     :fileList="fileListRef"
     :customRequest="handleStartUpload"
-    :showUploadList="{ showPreviewIcon: false }"
+    @preview="onPreview"
     @remove="onRemove"
   >
     <div v-if="listType === 'picture-card' && fileListRef.length < 1">
@@ -25,6 +25,7 @@
 <script lang="ts">
   import { PlusOutlined } from '@ant-design/icons-vue';
   import { Upload, Button } from 'ant-design-vue';
+  import type { UploadProps } from 'ant-design-vue';
   import { imgProps } from './props';
   import { computed, ref, toRefs, unref } from 'vue';
   import { omit } from 'lodash-es';
@@ -62,6 +63,7 @@
         maxSizeRef: maxSize,
       });
       const fileListRef = ref<FileItem[]>([]);
+      const fileInfoRef = ref(null);
 
       function beforeUpload(file: File) {
         const { size, name } = file;
@@ -154,11 +156,11 @@
           const errorList = data.filter((item: any) => !item.success);
           if (errorList.length > 0) throw errorList;
 
-          const info = fileListRef.value[0]?.responseData?.result;
+          fileInfoRef.value = fileListRef.value[0]?.responseData?.result;
 
           emit('update:value', fileListRef.value);
           emit('change', fileListRef.value);
-          emit('done', originFileInfo.name, info?.thumbUrl);
+          emit('done', originFileInfo.name, fileInfoRef.value?.thumbUrl);
         } catch (e) {
           throw e;
         }
@@ -166,6 +168,10 @@
 
       function onRemove() {
         fileListRef.value = [];
+      }
+
+      async function onPreview(): UploadProps['onPreview'] {
+        window.open(fileInfoRef.value?.thumbUrl);
       }
 
       const bindValue = computed(() => {
@@ -182,6 +188,7 @@
         fileListRef,
         prefixCls,
         typeCls,
+        onPreview,
       };
     },
   };
